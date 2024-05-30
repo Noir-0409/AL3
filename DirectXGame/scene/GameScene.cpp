@@ -1,19 +1,75 @@
 #include "GameScene.h"
 #include "TextureManager.h"
+#include "WorldTransform.h"
+#include "myMath2.h"
 #include <cassert>
+
+
 
 GameScene::GameScene() {}
 
-GameScene::~GameScene() {}
+GameScene::~GameScene() {
+
+delete modelBlock_;
+
+for (WorldTransform* worldTransformBlock : worldTransformBlocks_) {
+
+	delete worldTransformBlock;
+
+}
+
+worldTransformBlocks_.clear();
+
+}
 
 void GameScene::Initialize() {
 
 	dxCommon_ = DirectXCommon::GetInstance();
 	input_ = Input::GetInstance();
 	audio_ = Audio::GetInstance();
+
+	// 3Dモデルデータの作成
+	modelBlock_ = Model::Create();
+
+	viewProjection_.Initialize();
+
+	// 要素数
+	const uint32_t kNumBlockHorizontal = 20;
+
+	// ブロック1個分の横幅
+	const float kBlockWidth = 2.0f;
+
+	// 要素数を変更する
+	worldTransformBlocks_.resize(kNumBlockHorizontal);
+
+	// キューブの生成
+	for (uint32_t i = 0; i < kNumBlockHorizontal; ++i) {
+	
+	worldTransformBlocks_[i] = new WorldTransform();
+
+		worldTransformBlocks_[i]->Initialize();
+
+		worldTransformBlocks_[i]->translation_.x = kBlockWidth;
+
+		worldTransformBlocks_[i]->translation_.y = 0.0f;
+	
+	}
+
 }
 
-void GameScene::Update() {}
+void GameScene::Update() {
+
+// ブロックの更新
+	for (WorldTransform* worldTransformBlock : worldTransformBlocks_) {
+	
+	worldTransformBlock->UpdateMatrix();
+
+	// 定数バッファに転送
+	worldTransformBlock->TransferMatrix();
+	
+	}
+
+}
 
 void GameScene::Draw() {
 
@@ -30,6 +86,7 @@ void GameScene::Draw() {
 
 	// スプライト描画後処理
 	Sprite::PostDraw();
+
 	// 深度バッファクリア
 	dxCommon_->ClearDepthBuffer();
 #pragma endregion
@@ -37,6 +94,13 @@ void GameScene::Draw() {
 #pragma region 3Dオブジェクト描画
 	// 3Dオブジェクト描画前処理
 	Model::PreDraw(commandList);
+
+	// ブロックの描画
+	for (WorldTransform* worldTransformBlock : worldTransformBlocks_) {
+	
+		modelBlock_->Draw(*worldTransformBlock, viewProjection_);
+	
+	}
 
 	/// <summary>
 	/// ここに3Dオブジェクトの描画処理を追加できる

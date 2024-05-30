@@ -14,6 +14,8 @@ struct ConstBufferDataWorldTransform {
 /// ワールド変換データ
 /// </summary>
 struct WorldTransform {
+
+
 	// 定数バッファ
 	Microsoft::WRL::ComPtr<ID3D12Resource> constBuff_;
 	// マッピング済みアドレス
@@ -28,6 +30,8 @@ struct WorldTransform {
 	Matrix4x4 matWorld_;
 	// 親となるワールド変換へのポインタ
 	const WorldTransform* parent_ = nullptr;
+
+	void UpdateMatrix();
 
 	/// <summary>
 	/// 初期化
@@ -45,4 +49,5 @@ struct WorldTransform {
 	/// 行列を転送する
 	/// </summary>
 	void TransferMatrix();
+
 };

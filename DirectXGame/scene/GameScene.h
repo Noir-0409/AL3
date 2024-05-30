@@ -8,11 +8,19 @@
 #include "Sprite.h"
 #include "ViewProjection.h"
 #include "WorldTransform.h"
+#include <vector>
 
 /// <summary>
 /// ゲームシーン
 /// </summary>
 class GameScene {
+
+	// 3Dモデルデータ
+	Model* modelBlock_ = nullptr;
+
+	ViewProjection viewProjection_;
+
+	std::vector<WorldTransform*> worldTransformBlocks_;
 
 public: // メンバ関数
 	/// <summary>
