@@ -14,6 +14,9 @@ struct ConstBufferDataWorldTransform {
 /// ワールド変換データ
 /// </summary>
 struct WorldTransform {
+
+	void UpdateMatrix();
+
 	// 定数バッファ
 	Microsoft::WRL::ComPtr<ID3D12Resource> constBuff_;
 	// マッピング済みアドレス
