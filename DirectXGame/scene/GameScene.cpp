@@ -26,12 +26,15 @@ void GameScene::Initialize() {
 	audio_ = Audio::GetInstance();
 
 	// ファイル名を指定してテクスチャを読み込む
-	textureHandle_ = TextureManager::Load("block.jpg");
+	textureHandle_ = TextureManager::Load("./Resources./cube./cube.jpg");
+
 	// 3Dモデルの生成
 	model_ = Model::Create();
 	modelBlock_ = Model::Create();
+
 	// ワールドトランスフォームの初期化
 	worldTransform_.Initialize();
+
 	// ビュープロジェクションの初期化
 	viewProjection_.Initialize();
 
@@ -43,9 +46,11 @@ void GameScene::Initialize() {
 	// 要素数
 	const uint32_t kNumBlockVirtical = 10;
 	const uint32_t kNumBlockHorizontal = 20;
+
 	// ブロック1個分の横幅
 	const float kBlockWidth = 2.0f;
 	const float kBlockHeight = 2.0f;
+
 	// 要素数を変更する
 	worldTransformBlocks_.resize(kNumBlockVirtical);
 

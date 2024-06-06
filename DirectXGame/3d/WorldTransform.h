@@ -15,7 +15,6 @@ struct ConstBufferDataWorldTransform {
 /// </summary>
 struct WorldTransform {
 
-	void UpdateMatrix();
 
 	// 定数バッファ
 	Microsoft::WRL::ComPtr<ID3D12Resource> constBuff_;
@@ -48,4 +47,5 @@ struct WorldTransform {
 	/// 行列を転送する
 	/// </summary>
 	void TransferMatrix();
+	void UpdateMatrix();
 };
