@@ -5,6 +5,8 @@
 
 GameScene::GameScene() {}
 
+
+
 GameScene::~GameScene() {
 	delete model_;
 
