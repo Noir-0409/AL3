@@ -8,6 +8,7 @@
 #include "Sprite.h"
 #include "ViewProjection.h"
 #include "WorldTransform.h"
+#include "MapChipField.h"
 
 /// <summary>
 /// ゲームシーン
@@ -48,4 +49,8 @@ private: // メンバ変数
 	/// <summary>
 	/// ゲームシーン用
 	/// </summary>
+	 
+	// マップチップフィールド
+	MapChipField* mapChipField_;
+
 };
