@@ -19,6 +19,9 @@ void GameScene::Initialize() {
 
 	mapChipField_ = new MapChipField;
 	mapChipField_->LoadMapChipCsv("Resources/map.csv");
+
+	GenerateBlocks();
+
 }
 
 void GameScene::Update() {}
@@ -66,4 +69,16 @@ void GameScene::Draw() {
 	Sprite::PostDraw();
 
 #pragma endregion
+}
+
+void GameScene::GenerateBlocks() {
+
+// 要素数
+	uint32_t numBlockVirtical = mapChipField_->GetNumBlockVirtical();
+	uint32_t numBlockHorizontal = mapChipField_->GetNumBlockHorizontal();
+
+	// 要素数を変更
+	// 数列を設定
+
+
 }
