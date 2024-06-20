@@ -6,6 +6,18 @@ GameScene::GameScene() {}
 
 GameScene::~GameScene() {
 
+	for (std::vector<WorldTransform*>& worldTransformBlockLine : worldTransformBlocks_) {
+
+		for (WorldTransform* worldTransformBlock : worldTransformBlockLine) {
+
+			delete worldTransformBlock;
+		
+		}
+	
+	}
+
+	worldTransformBlocks_.clear();
+
 	// マップチップフィールドの解放
 	delete mapChipField_;
 
@@ -79,6 +91,39 @@ void GameScene::GenerateBlocks() {
 
 	// 要素数を変更
 	// 数列を設定
+	worldTransformBlocks_.resize(MapChipField::kNumBlockVirtical);
+
+	for (uint32_t i = 0; i < MapChipField::kNumBlockVirtical; ++i) {
+	
+	// 1列の要素数を設定
+		worldTransformBlocks_[i].resize(MapChipField::kNumBlockHorizontal);
+
+	}
+
+	// キューブの生成
+	for (uint32_t i = 0; i < MapChipField::kNumBlockVirtical; ++i) {
+
+		worldTransformBlocks_[i].resize(MapChipField::kNumBlockHorizontal);
+	
+	}
+
+	for (uint32_t i = 0; i < MapChipField::kNumBlockVirtical; ++i) {
+
+		for (uint32_t j = 0; j < MapChipField::kNumBlockHorizontal; ++j) {
 
 
-}
+			if (mapChipField_->GetMapChipTypeByIndex(j, i) == MapChipType::kBlock) {
+			
+			WorldTransform* worldTransform = new WorldTransform();
+			worldTransform->Initialize();
+			worldTransformBlocks_[i][j] = worldTransform;
+			worldTransformBlocks_[i][j]->translation_ =
+				mapChipField_->GetMapChipPositionByIndex(j, i);
+			
+			}
+			
+			}
+		}
+	}
+
+
