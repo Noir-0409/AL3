@@ -6,7 +6,7 @@ GameScene::GameScene() {}
 
 GameScene::~GameScene() {
 
-	// マップチップフィールドの開放
+	// マップチップフィールドの解放
 	delete mapChipField_;
 
 }
@@ -19,7 +19,6 @@ void GameScene::Initialize() {
 
 	mapChipField_ = new MapChipField;
 	mapChipField_->LoadMapChipCsv("Resources/map.csv");
-
 }
 
 void GameScene::Update() {}

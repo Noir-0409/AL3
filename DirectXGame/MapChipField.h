@@ -1,5 +1,6 @@
 #include <vector>
 #include "Vector3.h"
+#include "GameScene.h"
 
 class MapChipField {
 
@@ -15,7 +16,7 @@ MapChipData mapChipData_;
 
 void ResetMapChipData();
 
-void LoadMapChipCsv(const std::string& filePath);
+void LoadMapChipCsv(const std::string& filePath); 
 
 MapChipType GetMapChipTypeByIndex(uint32_t xIndex, uint32_t yIndex);
 
