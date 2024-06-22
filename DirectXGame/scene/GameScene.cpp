@@ -8,6 +8,7 @@ GameScene::GameScene() {}
 
 
 GameScene::~GameScene() {
+
 	delete model_;
 
 	for (std::vector<WorldTransform*>& worldTransformBlockLine : worldTransformBlocks_) {
