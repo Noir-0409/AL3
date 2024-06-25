@@ -34,17 +34,17 @@ void GameScene::GenerateBlocks() {
 
 	// 要素数を変更
 	// 列数を設定
-	worldTransformBlocks_.resize(MapChipField::kNumBlockVirtical);
+	worldTransformBlocks_.resize(numBlockVirtical);
 
-	for (uint32_t i = 0; i < MapChipField::kNumBlockVirtical; ++i) {
+	for (uint32_t i = 0; i < numBlockVirtical; ++i) {
 
 		// 1列の要素数を設定
-		worldTransformBlocks_[i].resize(MapChipField::kNumBlockHorizontal);
+		worldTransformBlocks_[i].resize(numBlockHorizontal);
 	}
 
 	// ブロックの生成
-	for (uint32_t i = 0; i < MapChipField::kNumBlockVirtical; ++i) {
-		for (uint32_t j = 0; j < MapChipField::kNumBlockHorizontal; ++j) {
+	for (uint32_t i = 0; i < numBlockVirtical; ++i) {
+		for (uint32_t j = 0; j < numBlockHorizontal; ++j) {
 
 			if (mapChipField_->GetMapChipTypeByIndex(j, i) == MapChipType::kBlock) {
 

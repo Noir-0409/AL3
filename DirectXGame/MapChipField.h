@@ -1,13 +1,28 @@
+#pragma once
 #include <vector>
+#include <string>
 #include "Vector3.h"
+
+enum class MapChipType {
+
+	kBlank, // 空白
+	kBlock, // ブロック
+
+};
+
+struct MapChipData {
+
+	std::vector<std::vector<MapChipType>> data;
+
+};
 
 class MapChipField {
 
 	public:
 
 	// 1ブロックのサイズ
-	static inline const float kBlockWidth = 1.0f;
-	static inline const float kBlockHeight = 1.0f;
+	static inline const float kBlockWidth = 2.0f;
+	static inline const float kBlockHeight = 2.0f;
 
 	// ブロックの個数
 	static inline const uint32_t kNumBlockVirtical = 20;
@@ -30,15 +45,4 @@ class MapChipField {
 
 };
 
-enum class MapChipType {
 
-	kBlank, // 空白
-	kBlock, // ブロック
-
-};
-
-struct MapChipData {
-
-	std::vector<std::vector<MapChipType>> data;
-
-};

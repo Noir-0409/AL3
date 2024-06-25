@@ -1,10 +1,10 @@
+
 #include "MapChipField.h"
 #include <map>
 #include <string>
 #include <fstream>
 #include <sstream>
 #include <cassert>
-
 namespace {
 
 	std::map<std::string, MapChipType> mapChipTable = {
