@@ -8,6 +8,7 @@
 #include "Sprite.h"
 #include "ViewProjection.h"
 #include "WorldTransform.h"
+#include "MapChipField.h"
 
 #include <vector>
 
@@ -41,6 +42,11 @@ public: // メンバ関数
 	/// 描画
 	/// </summary>
 	void Draw();
+
+	// マップチップフィールド
+	MapChipField* mapChipField_;
+
+	void GenerateBlocks();
 
 private: // メンバ変数
 	DirectXCommon* dxCommon_ = nullptr;
