@@ -9,6 +9,7 @@
 #include "ViewProjection.h"
 #include "WorldTransform.h"
 #include "MapChipField.h"
+#include "Player.h"
 
 #include <vector>
 
@@ -58,6 +59,10 @@ private: // メンバ変数
 	/// </summary>
 	// テクスチャハンドル
 	uint32_t textureHandle_ = 0;
+
+	// プレイヤーのテクスチャハンドル
+	uint32_t PlayerHandle_ = 0;
+
 	// 3Dモデル
 	Model* model_ = nullptr;
 	Model* modelBlock_ = nullptr;
@@ -67,7 +72,7 @@ private: // メンバ変数
 	ViewProjection viewProjection_;
 
 	// 自キャラ
-	//Player* player_ = nullptr;
+	Player* player_ = nullptr;
 
 	// 縦横ブロック配列
 	std::vector<std::vector<WorldTransform*>> worldTransformBlocks_;

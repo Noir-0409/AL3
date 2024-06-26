@@ -9,6 +9,9 @@ GameScene::GameScene() {}
 
 GameScene::~GameScene() {
 
+	// 自キャラの解放
+	delete player_;
+
 	delete model_;
 
 	for (std::vector<WorldTransform*>& worldTransformBlockLine : worldTransformBlocks_) {
@@ -66,6 +69,7 @@ void GameScene::Initialize() {
 
 	// ファイル名を指定してテクスチャを読み込む
 	textureHandle_ = TextureManager::Load("./Resources./cube./cube.jpg");
+	PlayerHandle_ = TextureManager::Load("./Resource./player./player.png");
 
 	// 3Dモデルの生成
 	model_ = Model::Create();
@@ -78,9 +82,9 @@ void GameScene::Initialize() {
 	viewProjection_.Initialize();
 
 	// 自キャラの生成
-	//player_ = new Player();
+	player_ = new Player();
 	// 自キャラの初期化
-	//player_->Initialize(model_, textureHandle_, &viewProjection_);
+	player_->Initialize(model_, textureHandle_, &viewProjection_);
 
 	// 要素数
 	//const uint32_t kNumBlockVirtical = 10;
@@ -145,7 +149,7 @@ void GameScene::Update() {
 	}
 
 	// 自キャラの更新
-	//player_->Update();
+	player_->Update();
 
 	// 縦横ブロック更新
 	for (std::vector<WorldTransform*> worldTransformBlockTate : worldTransformBlocks_) {
@@ -187,8 +191,9 @@ void GameScene::Draw() {
 	/// </summary>
 	// 3Dモデル描画
 	//	model_->Draw(worldTransform_, viewProjection_, textureHandle_);
+	
 	// 自キャラの描画
-	//	player_->Draw();
+	player_->Draw();
 
 	// 縦横ブロック描画
 	for (std::vector<WorldTransform*> worldTransformBlockTate : worldTransformBlocks_) {
