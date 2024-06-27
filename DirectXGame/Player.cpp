@@ -23,6 +23,18 @@ void Player::Update() {
 
 	// 行列を定数バッファに転送
 	worldTransform_.TransferMatrix();
+
+	// 移動入力
+
+
+	// 移動
+	worldTransform_.translation_.x += velocity_.x;
+	worldTransform_.translation_.y += velocity_.y;
+	worldTransform_.translation_.z += velocity_.z;
+
+	// 行列計算
+	worldTransform_.UpdateMatrix();
+
 }
 
 void Player::Draw() {

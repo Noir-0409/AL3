@@ -163,8 +163,6 @@ void GameScene::Update() {
 		}
 	}
 
-	worldTransform_.UpdateMatrix();
-
 }
 
 void GameScene::Draw() {
