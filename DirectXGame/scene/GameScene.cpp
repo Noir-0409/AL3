@@ -66,6 +66,7 @@ void GameScene::Initialize() {
 
 	// ファイル名を指定してテクスチャを読み込む
 	textureHandle_ = TextureManager::Load("./Resources./cube./cube.jpg");
+	playerHandle_ = TextureManager::Load("./Resources./F63rK-pbUAAvjNh.jpg");
 
 	// 3Dモデルの生成
 	model_ = Model::Create();
@@ -78,9 +79,9 @@ void GameScene::Initialize() {
 	viewProjection_.Initialize();
 
 	// 自キャラの生成
-	//player_ = new Player();
+	player_ = new Player();
 	// 自キャラの初期化
-	//player_->Initialize(model_, textureHandle_, &viewProjection_);
+	player_->Initialize(model_, playerHandle_, &viewProjection_);
 
 	// 要素数
 	//const uint32_t kNumBlockVirtical = 10;
@@ -145,7 +146,7 @@ void GameScene::Update() {
 	}
 
 	// 自キャラの更新
-	//player_->Update();
+	player_->Update();
 
 	// 縦横ブロック更新
 	for (std::vector<WorldTransform*> worldTransformBlockTate : worldTransformBlocks_) {
@@ -188,7 +189,7 @@ void GameScene::Draw() {
 	// 3Dモデル描画
 	//	model_->Draw(worldTransform_, viewProjection_, textureHandle_);
 	// 自キャラの描画
-	//	player_->Draw();
+		player_->Draw();
 
 	// 縦横ブロック描画
 	for (std::vector<WorldTransform*> worldTransformBlockTate : worldTransformBlocks_) {
