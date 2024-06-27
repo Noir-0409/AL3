@@ -80,8 +80,12 @@ void GameScene::Initialize() {
 
 	// 自キャラの生成
 	player_ = new Player();
+
+	//　座標をマップチップ番号で指定
+	Vector3 playerPosition = mapChipField_->GetMapChipPositionByIndex(10, 10);
+
 	// 自キャラの初期化
-	player_->Initialize(model_, playerHandle_, &viewProjection_);
+	player_->Initialize(model_,&viewProjection_,playerPosition);
 
 	// 要素数
 	//const uint32_t kNumBlockVirtical = 10;
@@ -158,6 +162,9 @@ void GameScene::Update() {
 			worldTransformBlockYoko->UpdateMatrix();
 		}
 	}
+
+	worldTransform_.UpdateMatrix();
+
 }
 
 void GameScene::Draw() {

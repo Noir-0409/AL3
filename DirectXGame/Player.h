@@ -1,6 +1,7 @@
 ﻿#include "Model.h"
 #include "ViewProjection.h"
 #include "WorldTransform.h"
+#include <numbers>
 
 /// <summary>
 /// 自キャラ
@@ -10,7 +11,7 @@ public:
 	/// <summary>
 	/// 初期化
 	/// </summary>
-	void Initialize(Model* model, uint32_t textureHandle, ViewProjection* viewProjection);
+	void Initialize(Model* model, ViewProjection* viewProjection,const Vector3& position);
 
 	/// <summary>
 	/// 更新
