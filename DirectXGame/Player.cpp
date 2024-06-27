@@ -24,36 +24,79 @@ void Player::Update() {
 	// 行列を定数バッファに転送
 	worldTransform_.TransferMatrix();
 
-	// 移動入力
-	// 左右移動
-	if (Input::GetInstance()->PushKey(DIK_RIGHT) || Input::GetInstance()->PushKey(DIK_LEFT)) {
 	
-	// 左右加速
-		Vector3 acceleration = {};
+    // 移動入力
+	Vector3 acceleration = {};
+
 	if (Input::GetInstance()->PushKey(DIK_RIGHT)) {
-	
+
+		// 左移動中の右入力
+		if (velocity_.x < 0.0f) {
+		
+			// 速度と逆方向に入力中は急ブレーキ
+			velocity_.x *= (1.0f - kAttenuation);
+		
+		}
+
 		acceleration.x += kAcceleration;
-	
-	} else if (Input::GetInstance()->PushKey(DIK_LEFT)) {
-	
+
+		if (lrDirection_ != LRDirection::kRight) {
+		
+			lrDirection_ = LRDirection::kRight;
+		
+		}
+
+	}
+	if (Input::GetInstance()->PushKey(DIK_LEFT)) {
+
+		// 右移動中の左入力
+		if (velocity_.x > 0.0f) {
+
+			// 速度と逆方向に入力中は急ブレーキ
+			velocity_.x *= (1.0f - kAttenuation);
+		}
+
 		acceleration.x -= kAcceleration;
-	
+
+		if (lrDirection_ != LRDirection::kLeft) {
+
+			lrDirection_ = LRDirection::kLeft;
+		}
+
 	}
 
 	// 加速、減速
 	velocity_.x += acceleration.x;
-	velocity_.y += acceleration.y;
-	velocity_.z += acceleration.z;
 
+	// 最大速度制限
+	velocity_.x = std::clamp(velocity_.x, - kLimitRunSpeed, kLimitRunSpeed);
+
+	// 非入力時は移動減衰をかける
+	if (!Input::GetInstance()->PushKey(DIK_RIGHT) && !Input::GetInstance()->PushKey(DIK_LEFT)) {
+		velocity_.x *= kAttenuation; // 速度に減速率を適用
 	}
 
 	// 移動
 	worldTransform_.translation_.x += velocity_.x;
-	worldTransform_.translation_.y += velocity_.y;
-	worldTransform_.translation_.z += velocity_.z;
 
 	// 行列計算
 	worldTransform_.UpdateMatrix();
+
+	// 旋回制御
+	{
+		// 左右の自キャラ角度テーブル
+		float destinationRotationYTable[] = {
+
+		    std::numbers::pi_v<float> / 2.0f, std::numbers::pi_v<float> * 3.0f / 2.0f
+
+		};
+
+		// 状態に応じた角度を取得
+		float destinationRotationY = destinationRotationYTable[static_cast<uint32_t>(lrDirection_)];
+
+		// 自キャラの角度を設定
+		worldTransform_.rotation_.y = destinationRotationY;
+	}
 
 }
 

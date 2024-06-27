@@ -3,6 +3,7 @@
 #include "WorldTransform.h"
 #include "Input.h"
 #include <numbers>
+#include <algorithm>
 
 /// <summary>
 /// 自キャラ
@@ -37,6 +38,18 @@ private:
 
 	Vector3 velocity_ = {};
 
-	static inline const float kAcceleration = 2.0f;
+	static inline const float kAcceleration = 0.05f;
+	static inline const float kAttenuation = 0.95f;
+	static inline const float kLimitRunSpeed = 3.0f;
+
+	// 左右
+	enum class LRDirection {
+
+		kRight,
+		kLeft,
+
+	};
+
+	LRDirection lrDirection_ = LRDirection::kRight;
 
 };
