@@ -1,6 +1,7 @@
 ﻿#include "Model.h"
 #include "ViewProjection.h"
 #include "WorldTransform.h"
+#include "Input.h"
 #include <numbers>
 
 /// <summary>
@@ -11,7 +12,7 @@ public:
 	/// <summary>
 	/// 初期化
 	/// </summary>
-	void Initialize(Model* model, ViewProjection* viewProjection,const Vector3& position);
+	void Initialize(Model* model, uint32_t playerHandle, ViewProjection* viewProjection, const Vector3& position);
 
 	/// <summary>
 	/// 更新
@@ -30,8 +31,12 @@ private:
 	Model* model_ = nullptr;
 	// テクスチャハンドル
 	uint32_t textureHandle_ = 0u;
+	uint32_t playerHandle_ = 0u;
 
 	ViewProjection* viewProjection_ = nullptr;
 
 	Vector3 velocity_ = {};
+
+	static inline const float kAcceleration = 2.0f;
+
 };

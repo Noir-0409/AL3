@@ -1,7 +1,7 @@
 ﻿#include "Player.h"
 #include <cassert>
 
-void Player::Initialize(Model* model, ViewProjection* viewProjection, const Vector3& position) {
+void Player::Initialize( Model* model, uint32_t playerHandle, ViewProjection* viewProjection, const Vector3& position) {
 
 	// NULLチェック
 	assert(model);
@@ -12,7 +12,7 @@ void Player::Initialize(Model* model, ViewProjection* viewProjection, const Vect
 
 	// 引数の内容をメンバ変数に記録
 	model_ = model;
-	//textureHandle_ = textureHandle;
+	playerHandle_ = playerHandle;
 	viewProjection_ = viewProjection;
 
 	worldTransform_.rotation_.y = std::numbers::pi_v<float> / 2.0f;
@@ -25,7 +25,27 @@ void Player::Update() {
 	worldTransform_.TransferMatrix();
 
 	// 移動入力
+	// 左右移動
+	if (Input::GetInstance()->PushKey(DIK_RIGHT) || Input::GetInstance()->PushKey(DIK_LEFT)) {
+	
+	// 左右加速
+		Vector3 acceleration = {};
+	if (Input::GetInstance()->PushKey(DIK_RIGHT)) {
+	
+		acceleration.x += kAcceleration;
+	
+	} else if (Input::GetInstance()->PushKey(DIK_LEFT)) {
+	
+		acceleration.x -= kAcceleration;
+	
+	}
 
+	// 加速、減速
+	velocity_.x += acceleration.x;
+	velocity_.y += acceleration.y;
+	velocity_.z += acceleration.z;
+
+	}
 
 	// 移動
 	worldTransform_.translation_.x += velocity_.x;
@@ -40,5 +60,6 @@ void Player::Update() {
 void Player::Draw() {
 
 	// 3Dモデルを描画
-	model_->Draw(worldTransform_, *viewProjection_, textureHandle_);
+	model_->Draw(worldTransform_, *viewProjection_, playerHandle_);
+
 }

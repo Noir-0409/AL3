@@ -5,8 +5,6 @@
 
 GameScene::GameScene() {}
 
-
-
 GameScene::~GameScene() {
 
 	delete model_;
@@ -85,7 +83,7 @@ void GameScene::Initialize() {
 	Vector3 playerPosition = mapChipField_->GetMapChipPositionByIndex(10, 10);
 
 	// 自キャラの初期化
-	player_->Initialize(model_,&viewProjection_,playerPosition);
+	player_->Initialize(model_,playerHandle_,&viewProjection_,playerPosition);
 
 	// 要素数
 	//const uint32_t kNumBlockVirtical = 10;
