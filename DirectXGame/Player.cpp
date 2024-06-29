@@ -1,108 +1,116 @@
-﻿#include "Player.h"
+﻿#include "Input.h"
+#include "Model.h"
+#include "ViewProjection.h"
+#include "WorldTransform.h"
+#include <algorithm>
 #include <cassert>
+#include <numbers>
 
-void Player::Initialize( Model* model, uint32_t playerHandle, ViewProjection* viewProjection, const Vector3& position) {
+class Player {
+public:
+	void Initialize(
+	    Model* model, uint32_t playerHandle, ViewProjection* viewProjection,
+	    const Vector3& position);
+	void Update();
+	void Draw();
 
-	// NULLチェック
+private:
+	WorldTransform worldTransform_;
+	Model* model_ = nullptr;
+	uint32_t playerHandle_ = 0u;
+	ViewProjection* viewProjection_ = nullptr;
+	Vector3 velocity_ = {};
+
+	static inline const float kAcceleration = 0.05f;
+	static inline const float kAttenuation = 0.95f;
+	static inline const float kLimitRunSpeed = 1.0f;
+	static inline const float kTimeTurn = 0.3f;
+
+	enum class LRDirection {
+		kRight,
+		kLeft,
+	};
+
+	LRDirection lrDirection_ = LRDirection::kRight;
+	float turnFirstRotationY_ = 0.0f;
+	float turnTimer_ = 0.0f;
+};
+
+void Player::Initialize(
+    Model* model, uint32_t playerHandle, ViewProjection* viewProjection, const Vector3& position) {
 	assert(model);
 
-	// ワールド変換の初期化
 	worldTransform_.Initialize();
 	worldTransform_.translation_ = position;
 
-	// 引数の内容をメンバ変数に記録
 	model_ = model;
 	playerHandle_ = playerHandle;
 	viewProjection_ = viewProjection;
 
 	worldTransform_.rotation_.y = std::numbers::pi_v<float> / 2.0f;
-
 }
 
 void Player::Update() {
-
-	// 行列を定数バッファに転送
 	worldTransform_.TransferMatrix();
 
-	
-    // 移動入力
 	Vector3 acceleration = {};
 
 	if (Input::GetInstance()->PushKey(DIK_RIGHT)) {
-
-		// 左移動中の右入力
 		if (velocity_.x < 0.0f) {
-		
-			// 速度と逆方向に入力中は急ブレーキ
 			velocity_.x *= (1.0f - kAttenuation);
-		
 		}
-
 		acceleration.x += kAcceleration;
 
 		if (lrDirection_ != LRDirection::kRight) {
-		
 			lrDirection_ = LRDirection::kRight;
-		
+			turnFirstRotationY_ = worldTransform_.rotation_.y;
+			turnTimer_ = kTimeTurn;
 		}
-
 	}
+
 	if (Input::GetInstance()->PushKey(DIK_LEFT)) {
-
-		// 右移動中の左入力
 		if (velocity_.x > 0.0f) {
-
-			// 速度と逆方向に入力中は急ブレーキ
 			velocity_.x *= (1.0f - kAttenuation);
 		}
-
 		acceleration.x -= kAcceleration;
 
 		if (lrDirection_ != LRDirection::kLeft) {
-
 			lrDirection_ = LRDirection::kLeft;
+			turnFirstRotationY_ = worldTransform_.rotation_.y;
+			turnTimer_ = kTimeTurn;
 		}
-
 	}
 
-	// 加速、減速
 	velocity_.x += acceleration.x;
+	velocity_.x = std::clamp(velocity_.x, -kLimitRunSpeed, kLimitRunSpeed);
 
-	// 最大速度制限
-	velocity_.x = std::clamp(velocity_.x, - kLimitRunSpeed, kLimitRunSpeed);
-
-	// 非入力時は移動減衰をかける
 	if (!Input::GetInstance()->PushKey(DIK_RIGHT) && !Input::GetInstance()->PushKey(DIK_LEFT)) {
-		velocity_.x *= kAttenuation; // 速度に減速率を適用
+		velocity_.x *= kAttenuation;
 	}
 
-	// 移動
 	worldTransform_.translation_.x += velocity_.x;
-
-	// 行列計算
 	worldTransform_.UpdateMatrix();
 
-	// 旋回制御
-	{
-		// 左右の自キャラ角度テーブル
+	if (turnTimer_ > 0.0f) {
+		turnTimer_ -= 1.0f / 60.0f;
+
 		float destinationRotationYTable[] = {
-
-		    std::numbers::pi_v<float> / 2.0f, std::numbers::pi_v<float> * 3.0f / 2.0f
-
+		    std::numbers::pi_v<float> / 2.0f,       // 右方向
+		    std::numbers::pi_v<float> * 3.0f / 2.0f // 左方向
 		};
 
-		// 状態に応じた角度を取得
 		float destinationRotationY = destinationRotationYTable[static_cast<uint32_t>(lrDirection_)];
 
-		// 自キャラの角度を設定
+		float t = 1.0f - (turnTimer_ / kTimeTurn);
+		worldTransform_.rotation_.y = std::lerp(turnFirstRotationY_, destinationRotationY, t);
+	} else {
+		float destinationRotationYTable[] = {
+		    std::numbers::pi_v<float> / 2.0f,       // 右方向
+		    std::numbers::pi_v<float> * 3.0f / 2.0f // 左方向
+		};
+		float destinationRotationY = destinationRotationYTable[static_cast<uint32_t>(lrDirection_)];
 		worldTransform_.rotation_.y = destinationRotationY;
 	}
-
 }
 
-void Player::Draw() {
-
-	// 3Dモデルを描画
-	model_->Draw(worldTransform_, *viewProjection_, playerHandle_);
-
-}
+void Player::Draw() { model_->Draw(worldTransform_, *viewProjection_, playerHandle_); }
