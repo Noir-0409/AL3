@@ -40,7 +40,7 @@ private:
 
 	static inline const float kAcceleration = 0.05f;
 	static inline const float kAttenuation = 0.95f;
-	static inline const float kLimitRunSpeed = 3.0f;
+	static inline const float kLimitRunSpeed = 1.0f;
 
 	// 左右
 	enum class LRDirection {
@@ -51,5 +51,14 @@ private:
 	};
 
 	LRDirection lrDirection_ = LRDirection::kRight;
+
+	//// 旋回開始時の角度
+	//float turnFirstRotationY_ = 0.0f;
+
+	//// 旋回タイマー
+	//float turnTimer_ = 0.0f;
+
+	//// 旋回時間(秒)
+	//static inline const float kTimeTurn = 0.3f;
 
 };
