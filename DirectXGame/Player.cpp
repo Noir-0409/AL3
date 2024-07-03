@@ -137,6 +137,13 @@ void Player::Update() {
 
 		// 移動
 		worldTransform_.translation_ += velocity_;
+
+		if (Input::GetInstance()->PushKey(DIK_UP)) {
+		
+		// ジャンプ初速
+			velocity_ += Vector3(0, kJumpAcceleration, 0);
+		
+		}
 	
 // 空中
 	} else {
