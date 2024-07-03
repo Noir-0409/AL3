@@ -30,6 +30,8 @@ class MapChipField {
 
 	MapChipData mapChipData_;
 
+	
+
 	void ResetMapChipData();
 
 	void LoadMapChipCsv(const std::string& filePath);

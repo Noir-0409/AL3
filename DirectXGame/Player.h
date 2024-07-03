@@ -1,6 +1,8 @@
 ﻿#include "Model.h"
 #include "ViewProjection.h"
 #include "WorldTransform.h"
+#include "MapChipField.h"
+#include "MathUtilityForText.h"
 
 /// <summary>
 /// 自キャラ
@@ -10,7 +12,8 @@ public:
 	/// <summary>
 	/// 初期化
 	/// </summary>
-	void Initialize(Model* model, uint32_t textureHandle, ViewProjection* viewProjection);
+	void Initialize(
+	    Model* model, uint32_t textureHandle, ViewProjection* viewProjection, const Vector3& position);
 
 	/// <summary>
 	/// 更新
@@ -31,4 +34,11 @@ private:
 	uint32_t textureHandle_ = 0u;
 
 	ViewProjection* viewProjection_ = nullptr;
+
+	Vector3 velocity_ = {};
+
+	static inline const float kAcceleration = 0.1f;
+
+	static inline const float kAttenuation = 0.1f;
+
 };

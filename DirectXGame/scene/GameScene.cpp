@@ -80,8 +80,12 @@ void GameScene::Initialize() {
 
 	// 自キャラの生成
 	player_ = new Player();
+
+	// 座標をマップチップ番号で固定
+	Vector3 playerPosition = mapChipField_->GetMapChipPositionByIndex(10, 15);
+
 	// 自キャラの初期化
-	player_->Initialize(model_, playerHandle_, &viewProjection_);
+	player_->Initialize(model_, playerHandle_, &viewProjection_,playerPosition);
 
 	// 要素数
 	//const uint32_t kNumBlockVirtical = 10;
@@ -119,6 +123,7 @@ void GameScene::Initialize() {
 	mapChipField_->LoadMapChipCsv("Resources/map.csv");
 
 	GenerateBlocks();
+
 }
 
 void GameScene::Update() {
