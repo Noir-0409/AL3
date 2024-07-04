@@ -10,6 +10,7 @@
 #include "WorldTransform.h"
 #include "MapChipField.h"
 #include "Player.h"
+#include "CameraController.h"
 
 #include <vector>
 
