@@ -24,6 +24,9 @@ GameScene::~GameScene() {
 	// マップチップフィールドの解放
 	delete mapChipField_;
 
+	// カメラコントローラーの解放
+	delete cameraController_;
+
 }
 
 void GameScene::GenerateBlocks() {
@@ -86,6 +89,9 @@ void GameScene::Initialize() {
 
 	// 自キャラの初期化
 	player_->Initialize(model_, playerHandle_, &viewProjection_,playerPosition);
+
+	// カメラコントローラーの初期化
+	cameraController_->Initialize();
 
 	// 要素数
 	//const uint32_t kNumBlockVirtical = 10;

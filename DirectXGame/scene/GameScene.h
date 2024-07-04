@@ -10,6 +10,7 @@
 #include "WorldTransform.h"
 #include "MapChipField.h"
 #include "Player.h"
+#include "CameraController.h"
 
 #include <vector>
 
@@ -46,6 +47,9 @@ public: // メンバ関数
 
 	// マップチップフィールド
 	MapChipField* mapChipField_;
+
+	// カメラコントローラー
+	CamereController* cameraController_;
 
 	void GenerateBlocks();
 
