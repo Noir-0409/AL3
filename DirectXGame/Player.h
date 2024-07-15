@@ -25,6 +25,8 @@ public:
 	/// </summary>
 	void Draw();
 
+	const WorldTransform& GetWorldTransform() const { return worldTransform_; }
+
 private:
 	// ワールド変換データ
 	WorldTransform worldTransform_;
@@ -76,4 +78,5 @@ private:
 
 	// ジャンプ初速
 	static inline const float kJumpAcceleration = 1.0f;
+
 };
