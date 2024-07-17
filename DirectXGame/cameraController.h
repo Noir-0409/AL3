@@ -1,5 +1,6 @@
-﻿#include "ViewProjection.h"
+﻿#include <ViewProjection.h>
 #include "MathUtilityForText.h"
+//#include "Player.h"
 
 // 前方宣言
 class Player;

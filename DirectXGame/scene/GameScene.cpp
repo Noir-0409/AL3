@@ -72,6 +72,9 @@ void GameScene::Initialize() {
 	model_ = Model::Create();
 	modelBlock_ = Model::Create();
 
+	// 自キャラの生成
+	player_ = new Player();
+
 	// カメラコントローラーの初期化
 	// 生成
 	cameraContoller_ = new CameraController();
@@ -89,9 +92,6 @@ void GameScene::Initialize() {
 
 	// ビュープロジェクションの初期化
 	viewProjection_.Initialize();
-
-	// 自キャラの生成
-	player_ = new Player();
 
 	// 座標をマップチップ番号で固定
 	Vector3 playerPosition = mapChipField_->GetMapChipPositionByIndex(10, 18);
@@ -148,6 +148,7 @@ void GameScene::Update() {
 		}
 	}
 
+	// カメラコントローラーの更新
 	cameraContoller_->Update();
 }
 
