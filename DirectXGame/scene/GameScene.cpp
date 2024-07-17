@@ -128,6 +128,9 @@ void GameScene::Update() {
 		viewProjection_.matProjection = debugCamera_->GetViewProjection().matProjection;
 		// ビュープロジェクション行列の転送
 		viewProjection_.TransferMatrix();
+
+		cameraViewProjection_.TransferMatrix();
+
 	} else {
 
 		// ビュープロジェクション行列の更新と転送

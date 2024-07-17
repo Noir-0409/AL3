@@ -13,6 +13,9 @@ class CameraController {
 
 	void Update();
 
+	// カメラのビュープロジェクション
+	ViewProjection cameraViewProjection_;
+
 	void SetTarget(Player* target) { target_ = target; }
 
 	void Reset();
@@ -20,9 +23,6 @@ class CameraController {
 	const ViewProjection& GetViewProjection() const { return cameraViewProjection_; }
 
 	private:
-
-	// カメラのビュープロジェクション
-	ViewProjection cameraViewProjection_;
 
 	// 追従対象
 	Player* target_ = nullptr;

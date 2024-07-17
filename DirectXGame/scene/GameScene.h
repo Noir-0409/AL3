@@ -70,6 +70,8 @@ private: // メンバ変数
 	// ビュープロジェクション
 	ViewProjection viewProjection_;
 
+	ViewProjection cameraViewProjection_;
+
 	CameraController* cameraContoller_;
 
 	// 自キャラ
