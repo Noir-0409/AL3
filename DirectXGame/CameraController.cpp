@@ -16,7 +16,11 @@ void CameraController::Update() {
 	const WorldTransform& targetWorldTransform = target_->GetWorldTransform();
 
 	// 追従対象とオフセットからカメラの座標を計算
-	cameraViewProjection_.translation_ = targetWorldTransform.translation_ + targetOffset_;
+	targetPosition_ = targetWorldTransform.translation_ + targetOffset_;
+
+	// 座標補間によりゆっくり追従
+	cameraViewProjection_.translation_ =
+	    Lerp(cameraViewProjection_.translation_, targetPosition_, kInterpolationRate_);
 
 	// 移動範囲制限
 	cameraViewProjection_.translation_.x =

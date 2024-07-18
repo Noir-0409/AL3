@@ -1,6 +1,6 @@
 ﻿#include <ViewProjection.h>
 #include "MathUtilityForText.h"
-//#include "Player.h"
+//#include "Mymath.h"
 
 // 前方宣言
 class Player;
@@ -44,5 +44,10 @@ class CameraController {
 	// カメラ移動範囲
 	Rect movableArea_ = {0, 100, 0, 100};
 
+	// カメラの目標座標
+	Vector3 targetPosition_;
+
+	// 座標補間割合
+	static inline const float kInterpolationRate_ = 0.1f;
 };
 
