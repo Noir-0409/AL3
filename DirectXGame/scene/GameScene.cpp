@@ -66,7 +66,7 @@ void GameScene::Initialize() {
 
 	// ファイル名を指定してテクスチャを読み込む
 	textureHandle_ = TextureManager::Load("./Resources./cube./cube.jpg");
-	playerHandle_ = TextureManager::Load("./Resources./F63rK-pbUAAvjNh.jpg");
+	playerHandle_ = TextureManager::Load("./Resources./2.png");
 
 	// 3Dモデルの生成
 	model_ = Model::Create();
@@ -129,12 +129,17 @@ void GameScene::Update() {
 		// ビュープロジェクション行列の転送
 		viewProjection_.TransferMatrix();
 
-		cameraViewProjection_.TransferMatrix();
+		
 
 	} else {
 
 		// ビュープロジェクション行列の更新と転送
 		viewProjection_.UpdateMatrix();
+		
+		viewProjection_.matView = cameraContoller_->GetViewProjection().matView;
+		viewProjection_.matProjection = cameraContoller_->GetViewProjection().matProjection;
+		viewProjection_.TransferMatrix();
+
 	}
 
 	// 自キャラの更新
