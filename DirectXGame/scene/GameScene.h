@@ -72,9 +72,6 @@ private: // メンバ変数
 
 	CameraController* cameraContoller_;
 
-	// カメラのビュープロジェクション
-	ViewProjection cameraViewProjection_;
-
 	// 自キャラ
 	Player* player_ = nullptr;
 

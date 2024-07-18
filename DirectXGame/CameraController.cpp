@@ -1,4 +1,6 @@
-﻿#include "CameraController.h"
+﻿#define NOMINMAX
+
+#include "CameraController.h"
 #include "Player.h"
 
 void CameraController::Initialize() {
@@ -15,6 +17,16 @@ void CameraController::Update() {
 
 	// 追従対象とオフセットからカメラの座標を計算
 	cameraViewProjection_.translation_ = targetWorldTransform.translation_ + targetOffset_;
+
+	// 移動範囲制限
+	cameraViewProjection_.translation_.x =
+	    std::max(cameraViewProjection_.translation_.x, movableArea_.left);
+	cameraViewProjection_.translation_.x =
+	    std::min(cameraViewProjection_.translation_.x, movableArea_.right);
+	cameraViewProjection_.translation_.y =
+	    std::max(cameraViewProjection_.translation_.x, movableArea_.bottom);
+	cameraViewProjection_.translation_.y =
+	    std::min(cameraViewProjection_.translation_.x, movableArea_.top);
 
 	// 行列を更新
 	cameraViewProjection_.UpdateMatrix();
