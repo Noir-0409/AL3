@@ -7,7 +7,6 @@ void CameraController::Initialize() {
 
 	// カメラビュープロジェクションの初期化
 	cameraViewProjection_.Initialize();
-
 }
 
 void CameraController::Update() {
@@ -15,8 +14,11 @@ void CameraController::Update() {
 	// 追従対象のワールドトランスフォームを参照
 	const WorldTransform& targetWorldTransform = target_->GetWorldTransform();
 
-	// 追従対象とオフセットからカメラの座標を計算
-	targetPosition_ = targetWorldTransform.translation_ + targetOffset_;
+	const Vector3 targetVelocity_ = target_->GetVelocity();
+
+	// 追従対象とオフセットと追従対象の速度からカメラの目標座標を計算
+	targetPosition_ =
+	    targetWorldTransform.translation_ + targetOffset_ + targetVelocity_ * kVeloicityBias;
 
 	// 座標補間によりゆっくり追従
 	cameraViewProjection_.translation_ =
@@ -28,21 +30,24 @@ void CameraController::Update() {
 	cameraViewProjection_.translation_.x =
 	    std::min(cameraViewProjection_.translation_.x, movableArea_.right);
 	cameraViewProjection_.translation_.y =
-	    std::max(cameraViewProjection_.translation_.x, movableArea_.bottom);
+	    std::max(cameraViewProjection_.translation_.y, movableArea_.bottom);
 	cameraViewProjection_.translation_.y =
-	    std::min(cameraViewProjection_.translation_.x, movableArea_.top);
+	    std::min(cameraViewProjection_.translation_.y, movableArea_.top);
+
+	cameraViewProjection_.translation_.x = std::max(cameraViewProjection_.translation_.x, targetWorldTransform.translation_.x + margin_.left);
+	cameraViewProjection_.translation_.x = std::min(cameraViewProjection_.translation_.x, targetWorldTransform.translation_.x + margin_.right);
+	cameraViewProjection_.translation_.y = std::max(cameraViewProjection_.translation_.y, targetWorldTransform.translation_.y + margin_.bottom);
+	cameraViewProjection_.translation_.y = std::min(cameraViewProjection_.translation_.y, targetWorldTransform.translation_.y + margin_.top);
 
 	// 行列を更新
 	cameraViewProjection_.UpdateMatrix();
-
 }
 
 void CameraController::Reset() {
 
-// 追従対象のワールドトランスフォームを参照
-const WorldTransform& targetWorldTransform = target_->GetWorldTransform();
+	// 追従対象のワールドトランスフォームを参照
+	const WorldTransform& targetWorldTransform = target_->GetWorldTransform();
 
-// 追従対象とオフセットからカメラの座標を計算
-cameraViewProjection_.translation_ = targetWorldTransform.translation_ + targetOffset_;
-
+	// 追従対象とオフセットからカメラの座標を計算
+	cameraViewProjection_.translation_ = targetWorldTransform.translation_ + targetOffset_;
 }

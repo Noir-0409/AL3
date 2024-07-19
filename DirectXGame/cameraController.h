@@ -1,22 +1,21 @@
-﻿#include <ViewProjection.h>
-#include "MathUtilityForText.h"
-//#include "Mymath.h"
+﻿#include "MathUtilityForText.h"
+#include <ViewProjection.h>
+// #include "Mymath.h"
 
 // 前方宣言
 class Player;
 
 class CameraController {
 
-	public:
+public:
+	// 矩形
+	struct Rect {
 
-		// 矩形
-	    struct Rect {
-
-		    float left = 0.0f;
-		    float right = 1.0f;
-		    float bottom = 0.0f;
-		    float top = 1.0f;
-	    };
+		float left = 0.0f;
+		float right = 1.0f;
+		float bottom = 0.0f;
+		float top = 1.0f;
+	};
 
 	void Initialize();
 
@@ -30,8 +29,7 @@ class CameraController {
 
 	void SetMovableArea(Rect area) { movableArea_ = area; }
 
-	private:
-
+private:
 	// 追従対象
 	Player* target_ = nullptr;
 
@@ -48,6 +46,11 @@ class CameraController {
 	Vector3 targetPosition_;
 
 	// 座標補間割合
-	static inline const float kInterpolationRate_ = 0.1f;
-};
+	static inline const float kInterpolationRate_ = 0.3f;
 
+	// 速度掛け率
+	static inline const float kVeloicityBias = 0.5f;
+
+	// 追従対象の各方向へのカメラ移動範囲
+	static inline const Rect margin_ = {-8.0f, 8.0f, -8.0f, 8.0f};
+};

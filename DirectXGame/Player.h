@@ -27,6 +27,10 @@ public:
 
 	const WorldTransform& GetWorldTransform() const { return worldTransform_; }
 
+	Vector3 velocity_ = {};
+
+	const Vector3& GetVelocity() const { return velocity_; }
+
 private:
 	// ワールド変換データ
 	WorldTransform worldTransform_;
@@ -36,8 +40,6 @@ private:
 	uint32_t textureHandle_ = 0u;
 
 	ViewProjection* viewProjection_ = nullptr;
-
-	Vector3 velocity_ = {};
 
 	// 加速度
 	static inline const float kAcceleration = 0.1f;
