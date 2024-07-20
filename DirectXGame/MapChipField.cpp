@@ -17,6 +17,10 @@ namespace {
 
 };
 
+void MapChipField::Initialize() {}
+
+void MapChipField::Update() {}
+
 void MapChipField::ResetMapChipData() {
 
     // マップチップデータをリセット

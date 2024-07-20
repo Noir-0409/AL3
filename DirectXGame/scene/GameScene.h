@@ -45,9 +45,6 @@ public: // メンバ関数
 	/// </summary>
 	void Draw();
 
-	// マップチップフィールド
-	MapChipField* mapChipField_;
-
 	void GenerateBlocks();
 
 private: // メンバ変数
@@ -71,6 +68,9 @@ private: // メンバ変数
 	ViewProjection viewProjection_;
 
 	CameraController* cameraContoller_;
+
+	// マップチップフィールド
+	MapChipField* mapChipField_;
 
 	// 自キャラ
 	Player* player_ = nullptr;

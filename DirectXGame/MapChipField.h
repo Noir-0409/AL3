@@ -20,6 +20,11 @@ class MapChipField {
 
 	public:
 
+		
+	void Initialize();
+
+	void Update();
+
 	// 1ブロックのサイズ
 	static inline const float kBlockWidth = 2.0f;
 	static inline const float kBlockHeight = 2.0f;
@@ -30,8 +35,6 @@ class MapChipField {
 
 	MapChipData mapChipData_;
 
-	
-
 	void ResetMapChipData();
 
 	void LoadMapChipCsv(const std::string& filePath);
@@ -41,6 +44,7 @@ class MapChipField {
 	Vector3 GetMapChipPositionByIndex(uint32_t xIndex, uint32_t yIndex);
 
 	auto GetNumBlockVirical() { return kNumBlockVirtical; }
+
 	auto GetNumBlockHorizontal() {return kNumBlockHorizontal;}
 
 	private:

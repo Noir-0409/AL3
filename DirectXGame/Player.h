@@ -4,6 +4,8 @@
 #include "MapChipField.h"
 #include "MathUtilityForText.h"
 
+class MapChipField;
+
 /// <summary>
 /// 自キャラ
 /// </summary>
@@ -30,6 +32,8 @@ public:
 	Vector3 velocity_ = {};
 
 	const Vector3& GetVelocity() const { return velocity_; }
+
+	void SetMapChipField(MapChipField* mapChipField) { mapChipField = mapChipField_; }
 
 private:
 	// ワールド変換データ
@@ -80,5 +84,8 @@ private:
 
 	// ジャンプ初速
 	static inline const float kJumpAcceleration = 1.0f;
+
+	// マップチップによるフィールド
+	MapChipField* mapChipField_ = nullptr;
 
 };
