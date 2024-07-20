@@ -88,4 +88,9 @@ private:
 	// マップチップによるフィールド
 	MapChipField* mapChipField_ = nullptr;
 
+	// キャラクターの当たり判定サイズ
+	static inline const float kWidth = 0.8f;
+
+	static inline const float kHeight = 0.8f;
+
 };
