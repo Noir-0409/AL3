@@ -6,31 +6,10 @@
 #include <Input.h>
 #include <algorithm>
 
-void Player::Initialize( Model* model, uint32_t textureHandle, ViewProjection* viewProjection,const Vector3& position) {
+void Player::InputMove() {
 
-	// NULLチェック
-	assert(model);
+// 移動入力
 
-	worldTransform_.Initialize();
-
-	// 引数の内容をメンバ変数に記録
-	model_ = model;
-	textureHandle_ = textureHandle;
-	viewProjection_ = viewProjection;
-	worldTransform_.translation_ = position;
-
-	worldTransform_.rotation_.y = std::numbers::pi_v<float> / 2.0f;
-
-
-}
-
-void Player::Update() {
-
-	// 行列を定数バッファに転送
-	worldTransform_.TransferMatrix();
-
-	// 移動入力
-	
 	// 接地状態
 	if (onGround_) {
 
@@ -137,26 +116,24 @@ void Player::Update() {
 
 		// 移動
 		worldTransform_.translation_ += velocity_;
-	
+
 		if (Input::GetInstance()->PushKey(DIK_UP)) {
-		
-		// ジャンプ初速
+
+			// ジャンプ初速
 			velocity_ += Vector3(0, kJumpAcceleration, 0);
-	
 		}
 
 		// ジャンプ開始
 		if (velocity_.y > 0.0f) {
 
 			onGround_ = false;
-
 		}
-	
-// 空中
+
+		// 空中
 	} else {
 
-			// 落下速度
-			velocity_ += Vector3(0, -kGravityAcceleration, 0);
+		// 落下速度
+		velocity_ += Vector3(0, -kGravityAcceleration, 0);
 
 		worldTransform_.translation_ += Vector3(velocity_);
 
@@ -179,8 +156,8 @@ void Player::Update() {
 
 		// 着地
 		if (landing) {
-		
-		// めり込み排除
+
+			// めり込み排除
 			worldTransform_.translation_.y = 1.0f;
 
 			// 摩擦で横方向速度が減衰
@@ -191,10 +168,36 @@ void Player::Update() {
 
 			// 接地状態に移行
 			onGround_ = true;
-		
 		}
-	
 	}
+
+}
+
+void Player::Initialize( Model* model, uint32_t textureHandle, ViewProjection* viewProjection,const Vector3& position) {
+
+	// NULLチェック
+	assert(model);
+
+	worldTransform_.Initialize();
+
+	// 引数の内容をメンバ変数に記録
+	model_ = model;
+	textureHandle_ = textureHandle;
+	viewProjection_ = viewProjection;
+	worldTransform_.translation_ = position;
+
+	worldTransform_.rotation_.y = std::numbers::pi_v<float> / 2.0f;
+
+
+}
+
+void Player::Update() {
+
+	// 行列を定数バッファに転送
+	worldTransform_.TransferMatrix();
+
+	// 移動入力
+	InputMove();
 
 	// 行列計算
 	worldTransform_.UpdateMatrix();

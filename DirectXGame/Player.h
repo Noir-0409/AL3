@@ -35,6 +35,8 @@ public:
 
 	void SetMapChipField(MapChipField* mapChipField) { mapChipField = mapChipField_; }
 
+	void InputMove();
+
 private:
 	// ワールド変換データ
 	WorldTransform worldTransform_;
