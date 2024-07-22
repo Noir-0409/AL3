@@ -47,7 +47,16 @@ class MapChipField {
 
 	auto GetNumBlockHorizontal() {return kNumBlockHorizontal;}
 
+	struct IndexSet {
+
+		uint32_t xIndex;
+		uint32_t yIndex;
+
+	};
+
 	private:
+
+		IndexSet GetMapChipIndexSetByPosition(const Vector3& position);
 
 };
 
