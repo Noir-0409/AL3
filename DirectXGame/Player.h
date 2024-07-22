@@ -95,4 +95,37 @@ private:
 
 	static inline const float kHeight = 0.8f;
 
+		// マップとの当たり判定情報
+	struct CollisionMapInfo {
+
+		bool ceiling = false;
+		bool landing = false;
+		bool hitwall = false;
+		Vector3 move;
+	};
+
+	void CheckMapCollision(CollisionMapInfo& info);
+
+	void CheckMapCollisionUp(CollisionMapInfo& info);
+
+	//void CheckMapCollisionDown(CollisionMapInfo& info);
+
+	//void CheckMapCollisionLeft(CollisionMapInfo& info);
+
+	//void CheckMapCollisionRight(CollisionMapInfo& info);
+
+	// 角
+	enum Corner {
+
+		kRightBottom,
+		kLeftBottom,
+		kRightTop,
+		kLeftTop,
+
+		kNumCorner // 要素数
+
+	};
+
+	Vector3 CornerPosition(const Vector3& center, Corner corner);
+
 };

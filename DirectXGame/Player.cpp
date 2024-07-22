@@ -173,6 +173,58 @@ void Player::InputMove() {
 
 }
 
+Vector3 Player::CornerPosition(const Vector3& center, Corner corner) {
+
+	Vector3 offsetTable[kNumCorner] = {
+
+	    {kWidth / 2.0f,  -kHeight / 2.0f, 0},
+	    {-kWidth / 2.0f, -kHeight / 2.0f, 0},
+	    {kWidth / 2.0f,  kHeight / 2.0f,  0},
+	    {-kWidth / 2.0f, kHeight / 2.0f,  0}
+	};
+
+	return center + offsetTable[static_cast<uint32_t>(corner)];
+}
+
+void Player::CheckMapCollision(CollisionMapInfo& info) {
+
+	CheckMapCollisionUp(info);
+
+	//CheckMapCollisionDown(info);
+
+	//CheckMapCollisionLeft(info);
+
+	//CheckMapCollisionRight(info);
+
+}
+
+void Player::CheckMapCollisionUp(CollisionMapInfo& info) {
+
+	// 上昇あり？
+	if (info.move.y <= 0) {
+	
+		return;
+	
+	}
+
+	// 移動後の4つの角の座標
+	std::array<Vector3, kNumCorner> positionsNew;
+
+	for (uint32_t i = 0; i < positionsNew.size(); ++i) {
+	
+	positionsNew[i] =
+		    CornerPosition(worldTransform_.translation_ + info.move, static_cast<Corner>(i));
+
+	}
+
+}
+
+//void Player::CheckMapCollisionDown(CollisionMapInfo& info) {}
+
+//void Player::CheckMapCollisionLeft(CollisionMapInfo& info) {}
+
+//void Player::CheckMapCollisionRight(CollisionMapInfo& info) {}
+
 void Player::Initialize( Model* model, uint32_t textureHandle, ViewProjection* viewProjection,const Vector3& position) {
 
 	// NULLチェック
@@ -198,6 +250,15 @@ void Player::Update() {
 
 	// 移動入力
 	InputMove();
+
+	// 衝突情報を初期化
+	CollisionMapInfo collisionMapInfo_;
+
+	// 移動量に速度の値をコピー
+	collisionMapInfo_.move = velocity_;
+
+	// マップ衝突チェック
+	CheckMapCollision(collisionMapInfo_);
 
 	// 行列計算
 	worldTransform_.UpdateMatrix();
