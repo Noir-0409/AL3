@@ -72,17 +72,11 @@ void GameScene::Initialize() {
 	model_ = Model::Create();
 	modelBlock_ = Model::Create();
 
-	// 自キャラの生成
-	player_ = new Player();
-
 	// カメラコントローラーの初期化
 	// 生成
 	cameraContoller_ = new CameraController();
 	// 初期化
 	cameraContoller_->Initialize();
-
-	// 追従対象をセット
-	cameraContoller_->SetTarget(player_);
 
 	// リセット(瞬間合わせ)
 	cameraContoller_->Reset();
@@ -96,8 +90,14 @@ void GameScene::Initialize() {
 	// 座標をマップチップ番号で固定
 	Vector3 playerPosition = mapChipField_->GetMapChipPositionByIndex(10, 18);
 
+	// 自キャラの生成
+	player_ = new Player();
+
 	// 自キャラの初期化
 	player_->Initialize(model_, playerHandle_, &viewProjection_,playerPosition);
+
+	// 追従対象をセット
+	cameraContoller_->SetTarget(player_);
 
 	// デバッグカメラの生成
 	debugCamera_ = new DebugCamera(1280, 720);

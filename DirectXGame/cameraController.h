@@ -37,7 +37,7 @@ private:
 	ViewProjection cameraViewProjection_;
 
 	// 追従対象とカメラ座標の差
-	Vector3 targetOffset_ = {0, 0, -15.0f};
+	Vector3 targetOffset_ = {0, 0, -25.0f};
 
 	// カメラ移動範囲
 	Rect movableArea_ = {0, 100, 0, 100};

@@ -9,6 +9,28 @@
 /// </summary>
 class Player {
 public:
+
+	// 左右
+	enum class LRDirection {
+
+		kRight,
+		kLeft,
+
+	};
+
+	// 角
+	enum Corner {
+
+		kRightBottom,
+		kLeftBottom,
+		kRightTop,
+		kLeftTop,
+
+		kNumCorner
+
+	};
+
+
 	/// <summary>
 	/// 初期化
 	/// </summary>
@@ -27,11 +49,24 @@ public:
 
 	const WorldTransform& GetWorldTransform() const { return worldTransform_; }
 
-	Vector3 velocity_ = {};
-
 	const Vector3& GetVelocity() const { return velocity_; }
 
+	// 入力
+	void InputMove();
+
+	Vector3 CornerPosition(const Vector3& center, Corner corner);
+
 private:
+
+	struct CollisionMapInfo {
+
+		bool ceiling = false;
+		bool landing = false;
+		bool hitWall = false;
+		Vector3 move;
+
+	};
+
 	// ワールド変換データ
 	WorldTransform worldTransform_;
 	// モデル
@@ -41,6 +76,8 @@ private:
 
 	ViewProjection* viewProjection_ = nullptr;
 
+	Vector3 velocity_ = {};
+
 	// 加速度
 	static inline const float kAcceleration = 0.1f;
 
@@ -49,14 +86,6 @@ private:
 
 	// 最大速度
 	static inline const float kLimitRunSpeed = 1.0f;
-
-	// 左右
-	enum class LRDirection {
-
-		kRight,
-		kLeft,
-
-	};
 
 	LRDirection lrDirection_ = LRDirection::kRight;
 
@@ -72,6 +101,9 @@ private:
 	// 接地状態フラグ
 	bool onGround_ = true;
 
+	// 着地フラグ
+	//bool landing = false;
+
 	// 重力加速度
 	static inline const float kGravityAcceleration = 0.05f;
 
@@ -80,5 +112,27 @@ private:
 
 	// ジャンプ初速
 	static inline const float kJumpAcceleration = 1.0f;
+
+	// マップチップによるフィールド
+	MapChipField* mapChipField_ = nullptr;
+
+	// キャラクターの当たり判定サイズ
+	static inline const float kWidth = 0.8f;
+
+	static inline const float kHeight = 0.8f;
+
+	static inline const float kBlank = 0.04f;
+
+	static inline const float kAttenuationwall = 0.2f;
+
+	void CheckMapCollision(CollisionMapInfo& info);
+
+	void CheckMapCollisionUP(CollisionMapInfo& info);
+
+	/*void CheckMapCollisionDown(CollisionMapInfo& info);
+
+	void CheckMapCollisionRight(CollisionMapInfo& info);
+
+	void CheckMapCollisionLeft(CollisionMapInfo& info);*/
 
 };

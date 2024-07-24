@@ -20,30 +20,49 @@ class MapChipField {
 
 	public:
 
-	// 1ブロックのサイズ
-	static inline const float kBlockWidth = 2.0f;
-	static inline const float kBlockHeight = 2.0f;
+		struct IndexSet {
 
-	// ブロックの個数
-	static inline const uint32_t kNumBlockVirtical = 20;
-	static inline const uint32_t kNumBlockHorizontal = 100;
+			uint32_t xIndex;
+		    uint32_t yIndex;
 
-	MapChipData mapChipData_;
+		};
 
-	
+		struct Rect {
 
-	void ResetMapChipData();
+			float left;
+		    float right;
+		    float bottom;
+		    float top;
 
-	void LoadMapChipCsv(const std::string& filePath);
+		};
 
-	MapChipType GetMapChipTypeByIndex(uint32_t xIndex, uint32_t yIndex);
+		void ResetMapChipData();
 
-	Vector3 GetMapChipPositionByIndex(uint32_t xIndex, uint32_t yIndex);
+	    void LoadMapChipCsv(const std::string& filePath);
 
-	auto GetNumBlockVirical() { return kNumBlockVirtical; }
-	auto GetNumBlockHorizontal() {return kNumBlockHorizontal;}
+	    MapChipType GetMapChipTypeByIndex(uint32_t xIndex, uint32_t yIndex);
+
+	    Vector3 GetMapChipPositionByIndex(uint32_t xIndex, uint32_t yIndex);
+
+		IndexSet GetMapChipIndexSetByPosition(const Vector3& position);
+
+		Rect GetRectByIndex(uint32_t xIndex, uint32_t yIndex);
+
+		auto GetNumBlockVirical() { return kNumBlockVirtical; }
+	    auto GetNumBlockHorizontal() { return kNumBlockHorizontal; }
 
 	private:
+
+		// 1ブロックのサイズ
+	    static inline const float kBlockWidth = 2.0f;
+	    static inline const float kBlockHeight = 2.0f;
+
+	    // ブロックの個数
+	    static inline const uint32_t kNumBlockVirtical = 20;
+	    static inline const uint32_t kNumBlockHorizontal = 100;
+
+	    MapChipData mapChipData_;
+
 
 };
 
