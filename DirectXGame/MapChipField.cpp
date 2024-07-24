@@ -117,5 +117,24 @@ return mapChipData_.data[yIndex][xIndex];
  
  }
 
+MapChipField:: Rect MapChipField::GetRectByIndex(uint32_t xIndex, uint32_t yIndex) { 
+    
+    Rect rect;
+
+    // 指定ブロックの中心座標を取得
+	Vector3 center = GetMapChipPositionByIndex(xIndex, yIndex);
+
+    rect.left = center.x - kBlockWidth / 2.0f;
+
+    rect.right = center.x + kBlockWidth / 2.0f;
+
+    rect.bottom = center.y - kBlockHeight / 2.0f;
+
+    rect.top = center.y + kBlockHeight / 2.0f;
+    
+    return rect; 
+
+}
+
 
 

@@ -5,6 +5,8 @@
 #include <numbers>
 #include <Input.h>
 #include <algorithm>
+#include "MapChipField.h"
+#include <DebugText.h>
 
 void Player::InputMove() {
 
@@ -217,6 +219,59 @@ void Player::CheckMapCollisionUp(CollisionMapInfo& info) {
 
 	}
 
+	MapChipType mapChipType_;
+
+	// 真上の当たり判定
+	bool hit = false;
+
+	// 左上の判定
+	MapChipField::IndexSet indexSet;
+
+	indexSet = mapChipField_->GetMapChipIndexSetByPosition(positionsNew[kLeftTop]);
+
+	mapChipType_ = mapChipField_->GetMapChipTypeByIndex(indexSet.xIndex, indexSet.yIndex);
+
+	if (mapChipType_ == MapChipType::kBlock) {
+	
+	hit = true;
+	
+	}
+
+	// 右上の判定
+	indexSet = mapChipField_->GetMapChipIndexSetByPosition(positionsNew[kRightTop]);
+
+	mapChipType_ = mapChipField_->GetMapChipTypeByIndex(indexSet.xIndex, indexSet.yIndex);
+
+	if (mapChipType_ == MapChipType::kBlock) {
+
+	hit = true;
+	}
+
+	// ブロックにヒット？
+	if (hit) {
+	
+	// めり込みを排除する方向に移動量を設定
+	indexSet = mapChipField_->GetMapChipIndexSetByPosition(
+		worldTransform_.translation_ + Vector3(0, kHeight / 2.0f, 0));
+
+	// めり込み先ブロックの範囲矩形
+	MapChipField::Rect rect = mapChipField_->GetRectByIndex(indexSet.xIndex, indexSet.yIndex);
+
+	info.move.y =
+		std::max(0.0f, (rect.bottom - worldTransform_.translation_.y - (kHeight / 2.0f +kBlank)));
+
+	// 天井に当たったことを記録する
+	info.ceiling = true;
+	
+	}
+
+}
+
+void Player::HitMove(const CollisionMapInfo& info) {
+
+	// 移動
+	worldTransform_.translation_ += info.move;
+
 }
 
 //void Player::CheckMapCollisionDown(CollisionMapInfo& info) {}
@@ -262,6 +317,18 @@ void Player::Update() {
 
 	// 行列計算
 	worldTransform_.UpdateMatrix();
+}
+
+void Player::IsCeiling(const CollisionMapInfo& info) {
+
+	// 天井に当たった？
+	if (info.ceiling) {
+	
+	DebugText::GetInstance()->ConsolePrintf("hit ceiling\n");
+
+	velocity_.y = 0;
+	
+	}
 }
 
 void Player::Draw() {

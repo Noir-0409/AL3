@@ -37,6 +37,30 @@ public:
 
 	void InputMove();
 
+		// マップとの当たり判定情報
+	struct CollisionMapInfo {
+
+		bool ceiling = false;
+		bool landing = false;
+		bool hitwall = false;
+		Vector3 move;
+	};
+
+
+	void CheckMapCollision(CollisionMapInfo& info);
+
+	void CheckMapCollisionUp(CollisionMapInfo& info);
+
+	// void CheckMapCollisionDown(CollisionMapInfo& info);
+
+	// void CheckMapCollisionLeft(CollisionMapInfo& info);
+
+	// void CheckMapCollisionRight(CollisionMapInfo& info);
+
+	void HitMove(const CollisionMapInfo& info);
+
+	void IsCeiling(const CollisionMapInfo& info);
+
 private:
 	// ワールド変換データ
 	WorldTransform worldTransform_;
@@ -95,25 +119,6 @@ private:
 
 	static inline const float kHeight = 0.8f;
 
-		// マップとの当たり判定情報
-	struct CollisionMapInfo {
-
-		bool ceiling = false;
-		bool landing = false;
-		bool hitwall = false;
-		Vector3 move;
-	};
-
-	void CheckMapCollision(CollisionMapInfo& info);
-
-	void CheckMapCollisionUp(CollisionMapInfo& info);
-
-	//void CheckMapCollisionDown(CollisionMapInfo& info);
-
-	//void CheckMapCollisionLeft(CollisionMapInfo& info);
-
-	//void CheckMapCollisionRight(CollisionMapInfo& info);
-
 	// 角
 	enum Corner {
 
@@ -127,5 +132,7 @@ private:
 	};
 
 	Vector3 CornerPosition(const Vector3& center, Corner corner);
+
+	static inline const float kBlank = 0.5f;
 
 };

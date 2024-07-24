@@ -54,9 +54,21 @@ class MapChipField {
 
 	};
 
-	private:
+	IndexSet GetMapChipIndexSetByPosition(const Vector3& position);
 
-		IndexSet GetMapChipIndexSetByPosition(const Vector3& position);
+	// 範囲矩形
+	struct Rect {
+
+		float left;
+		float right;
+		float bottom;
+		float top;
+
+	};
+
+	Rect GetRectByIndex(uint32_t xIndex, uint32_t yIndex);
+
+	private:
 
 };
 
