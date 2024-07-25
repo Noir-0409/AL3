@@ -65,7 +65,7 @@ void GameScene::Initialize() {
 	audio_ = Audio::GetInstance();
 
 	// ファイル名を指定してテクスチャを読み込む
-	textureHandle_ = TextureManager::Load("./Resources./cube./cube.jpg");
+	textureHandle_ = TextureManager::Load("./Resources/block/block.png");
 	playerHandle_ = TextureManager::Load("./Resources./2.png");
 
 	// 3Dモデルの生成
@@ -202,7 +202,7 @@ void GameScene::Draw() {
 			if (!worldTransformBlockYoko)
 				continue;
 
-			modelBlock_->Draw(*worldTransformBlockYoko, viewProjection_);
+			modelBlock_->Draw(*worldTransformBlockYoko, viewProjection_,textureHandle_ );
 		}
 	}
 

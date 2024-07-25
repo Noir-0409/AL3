@@ -6,6 +6,7 @@
 #include <Input.h>
 #include <algorithm>
 #include "MapChipField.h"
+#include <DebugText.h>
 
 void Player::Initialize( Model* model, uint32_t textureHandle, ViewProjection* viewProjection,const Vector3& position) {
 
@@ -169,7 +170,7 @@ void Player::InpuMove() {
 		if (Input::GetInstance()->PushKey(DIK_UP)) {
 
 			// ジャンプ初速
-			velocity_ += Vector3(0, kJumpAcceleration, 0);
+			velocity_ += Vector3(0, kJumpAcceleration/60.0f, 0);
 		}
 
 		// ジャンプ開始
@@ -182,7 +183,7 @@ void Player::InpuMove() {
 	} else {
 
 		// 落下速度
-		velocity_ += Vector3(0, -kGravityAcceleration, 0);
+		velocity_ += Vector3(0, -kGravityAcceleration/60, 0);
 
 		worldTransform_.translation_ += Vector3(velocity_);
 
@@ -253,7 +254,7 @@ void Player::CheckMapCollisionUp(CollisionMapInfo& info) {
 	MapChipType mapChipType;
 
 	// 真上の判定
-	bool hit = true;
+	bool hit = false;
 
 	// 左上の判定
 	MapChipField::IndexSet indexSet;
@@ -294,6 +295,15 @@ void Player::CheckMapCollisionUp(CollisionMapInfo& info) {
 
 		info.ceiling = true;
 	
+	} 
+
+	// 天井に当たった？
+	if (info.ceiling) {
+	
+		DebugText::GetInstance()->ConsolePrintf("hit\n");
+
+		velocity_.y = 0;
+	
 	}
 
 }
@@ -309,6 +319,13 @@ Vector3 Player::CornerPosition(const Vector3& center, Corner corner) {
 	};
 	
 	return center + offsetTable[static_cast<uint32_t>(corner)];
+
+}
+
+void Player::CollisionMove(const CollisionMapInfo& info) {
+
+// 移動
+	worldTransform_.translation_ += info.move;
 
 }
 

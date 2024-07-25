@@ -81,6 +81,8 @@ public:
 
 	Vector3 CornerPosition(const Vector3& center, Corner corner);
 
+	void CollisionMove(const CollisionMapInfo& info);
+
 private:
 	// ワールド変換データ
 	WorldTransform worldTransform_;
@@ -98,7 +100,7 @@ private:
 	static inline const float kAttenuation = 0.1f;
 
 	// 最大速度
-	static inline const float kLimitRunSpeed = 1.0f;
+	static inline const float kLimitRunSpeed = 0.8f;
 
 	LRDirection lrDirection_ = LRDirection::kRight;
 
@@ -115,13 +117,13 @@ private:
 	bool onGround_ = true;
 
 	// 重力加速度
-	static inline const float kGravityAcceleration = 0.05f;
+	static inline const float kGravityAcceleration = 0.98f;
 
 	// 最大落下速度
 	static inline const float kLimitFallSpeed = 1.0f; 
 
 	// ジャンプ初速
-	static inline const float kJumpAcceleration = 1.0f;
+	static inline const float kJumpAcceleration = 20.0f;
 
 	Vector3 velocity_ = {};
 
@@ -132,6 +134,6 @@ private:
 	static inline const float kWidth = 0.8f;
 	static inline const float kHeight = 0.8f;
 
-	static inline const float kBlank =15.0f;
+	static inline const float kBlank =0.04f;
 
 };
