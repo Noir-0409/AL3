@@ -326,7 +326,33 @@ void Player::CheckMapCollisionDown(CollisionMapInfo& info) {
 		    CornerPosition(worldTransform_.translation_ - info.move, static_cast<Corner>(i));
 	}
 
-	//MapChipType mapChipType;
+	MapChipType mapChipType;
+
+	// 真下の判定を行う
+	bool hit = false;
+
+	// 左下の判定
+	MapChipField::IndexSet indexSet;
+
+	indexSet = mapChipField_->GetMapChipIndexSetByPosition(positionsNew[kLeftBottom]);
+
+	mapChipType = mapChipField_->GetMapChipTypeByIndex(indexSet.xIndex, indexSet.yIndex);
+
+	if (mapChipType == MapChipType::kBlock) {
+
+		hit = true;
+	}
+
+	// 右下の判定
+	indexSet = mapChipField_->GetMapChipIndexSetByPosition(positionsNew[kRightBottom]);
+
+	mapChipType = mapChipField_->GetMapChipTypeByIndex(indexSet.xIndex, indexSet.yIndex);
+
+	if (mapChipType == MapChipType::kBlock) {
+
+		hit = true;
+	}
+
 }
 //
 //void Player::CheckMapCollisionLeft(CollisionMapInfo& info) {}
