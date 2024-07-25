@@ -49,7 +49,7 @@ public:
 	/// 初期化
 	/// </summary>
 	void Initialize(
-	    Model* model, uint32_t textureHandle, ViewProjection* viewProjection, const Vector3& position);
+	    Model* model, ViewProjection* viewProjection, const Vector3& position);
 
 	/// <summary>
 	/// 更新

@@ -8,7 +8,7 @@
 #include "MapChipField.h"
 #include <DebugText.h>
 
-void Player::Initialize( Model* model, uint32_t textureHandle, ViewProjection* viewProjection,const Vector3& position) {
+void Player::Initialize( Model* model, ViewProjection* viewProjection,const Vector3& position) {
 
 	// NULLチェック
 	assert(model);
@@ -17,7 +17,7 @@ void Player::Initialize( Model* model, uint32_t textureHandle, ViewProjection* v
 
 	// 引数の内容をメンバ変数に記録
 	model_ = model;
-	textureHandle_ = textureHandle;
+	//textureHandle_ = textureHandle;
 	viewProjection_ = viewProjection;
 	worldTransform_.translation_ = position;
 
@@ -49,7 +49,7 @@ void Player::Update() {
 void Player::Draw() {
 
 	// 3Dモデルを描画
-	model_->Draw(worldTransform_, *viewProjection_, textureHandle_);
+	model_->Draw(worldTransform_, *viewProjection_);
 
 }
 

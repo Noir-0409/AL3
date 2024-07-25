@@ -70,10 +70,10 @@ void GameScene::Initialize() {
 	 modelBlock_ = Model::CreateFromOBJ("block", true);
 	model_ = Model::CreateFromOBJ("player",true);
 	//textureHandle_ = TextureManager::Load("./Resources/block/block.png");
-	playerHandle_ = TextureManager::Load("./Resources./2.png");
+//	playerHandle_ = TextureManager::Load("./Resources./2.png");
 
 	// 3Dモデルの生成
-	model_ = Model::Create();
+	//model_ = Model::Create();
 	//modelBlock_ = Model::Create();
 
 	mapChipField_ = new MapChipField;
@@ -86,7 +86,8 @@ void GameScene::Initialize() {
 	Vector3 playerPosition = mapChipField_->GetMapChipPositionByIndex(10, 18);
 
 	// 自キャラの初期化
-	player_->Initialize(model_, playerHandle_, &viewProjection_, playerPosition);
+	//player_->Initialize(model_, playerHandle_, &viewProjection_, playerPosition);
+	player_->Initialize(model_, &viewProjection_, playerPosition);
 
 	player_->SetMapChipField(mapChipField_);
 
