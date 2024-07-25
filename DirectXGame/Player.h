@@ -11,6 +11,28 @@ class MapChipField;
 /// </summary>
 class Player {
 public:
+
+	// 左右
+	enum class LRDirection {
+
+		kRight,
+		kLeft,
+
+	};
+
+		// 角
+	enum Corner {
+
+		kRightBottom,
+		kLeftBottom,
+		kRightTop,
+		kLeftTop,
+
+		kNumCorner // 要素数
+
+	};
+
+
 	/// <summary>
 	/// 初期化
 	/// </summary>
@@ -29,15 +51,13 @@ public:
 
 	const WorldTransform& GetWorldTransform() const { return worldTransform_; }
 
-	Vector3 velocity_ = {};
-
 	const Vector3& GetVelocity() const { return velocity_; }
 
-	void SetMapChipField(MapChipField* mapChipField) { mapChipField = mapChipField_; }
+	void SetMapChipField(MapChipField* mapChipField) { mapChipField_ = mapChipField; }
 
 	void InputMove();
 
-		// マップとの当たり判定情報
+	// マップとの当たり判定情報
 	struct CollisionMapInfo {
 
 		bool ceiling = false;
@@ -57,6 +77,7 @@ public:
 
 	// void CheckMapCollisionRight(CollisionMapInfo& info);
 
+	//判定結果を反映して移動
 	void HitMove(const CollisionMapInfo& info);
 
 	void IsCeiling(const CollisionMapInfo& info);
@@ -79,14 +100,6 @@ private:
 
 	// 最大速度
 	static inline const float kLimitRunSpeed = 1.0f;
-
-	// 左右
-	enum class LRDirection {
-
-		kRight,
-		kLeft,
-
-	};
 
 	LRDirection lrDirection_ = LRDirection::kRight;
 
@@ -119,20 +132,11 @@ private:
 
 	static inline const float kHeight = 0.8f;
 
-	// 角
-	enum Corner {
-
-		kRightBottom,
-		kLeftBottom,
-		kRightTop,
-		kLeftTop,
-
-		kNumCorner // 要素数
-
-	};
-
 	Vector3 CornerPosition(const Vector3& center, Corner corner);
 
 	static inline const float kBlank = 0.5f;
+
+	Vector3 velocity_ = {};
+
 
 };

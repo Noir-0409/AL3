@@ -29,7 +29,7 @@ void MapChipField::ResetMapChipData() {
 
     for (std::vector<MapChipType>& mapChipDataLine : mapChipData_.data) {
 	
-        mapChipDataLine.resize(kNumBlockHorizontal);
+        mapChipDataLine.resize(kNumBlockHorizontal,MapChipType::kBlank);
     
     }
 
@@ -113,7 +113,7 @@ return mapChipData_.data[yIndex][xIndex];
      indexSet_.yIndex = kNumBlockVirtical - 1 -
 	                    static_cast<uint32_t>((position.y + kBlockHeight / 2) / kBlockHeight);
      
-     return IndexSet(); 
+     return indexSet_   ; 
  
  }
 
