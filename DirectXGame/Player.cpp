@@ -308,8 +308,33 @@ void Player::CheckMapCollisionUp(CollisionMapInfo& info) {
 
 }
 
-Vector3 Player::CornerPosition(const Vector3& center, Corner corner) { 
+void Player::CheckMapCollisionDown(CollisionMapInfo& info) {
+
+// 下降あり
+	if (info.move.y >= 0) {
 	
+		return;
+	
+	}
+
+	// 移動後の4つの角の座標
+	std::array<Vector3, kNumCorner> positionsNew;
+
+	for (uint32_t i = 0; i < positionsNew.size(); ++i) {
+
+		positionsNew[i] =
+		    CornerPosition(worldTransform_.translation_ - info.move, static_cast<Corner>(i));
+	}
+
+	//MapChipType mapChipType;
+}
+//
+//void Player::CheckMapCollisionLeft(CollisionMapInfo& info) {}
+//
+//void Player::CheckMapCollisionRight(CollisionMapInfo& info) {}
+
+Vector3 Player::CornerPosition(const Vector3& center, Corner corner) {
+
 	Vector3 offsetTable[kNumCorner] = {
 
 	    {+kWidth / 2.0f, -kHeight / 2.0f, 0},
@@ -317,20 +342,12 @@ Vector3 Player::CornerPosition(const Vector3& center, Corner corner) {
 	    {+kWidth / 2.0f, +kHeight / 2.0f, 0},
 	    {-kWidth / 2.0f, +kHeight / 2.0f, 0},
 	};
-	
-	return center + offsetTable[static_cast<uint32_t>(corner)];
 
+	return center + offsetTable[static_cast<uint32_t>(corner)];
 }
 
 void Player::CollisionMove(const CollisionMapInfo& info) {
 
-// 移動
+	// 移動
 	worldTransform_.translation_ += info.move;
-
 }
-
-//void Player::CheckMapCollisionDown(CollisionMapInfo& info) {}
-//
-//void Player::CheckMapCollisionLeft(CollisionMapInfo& info) {}
-//
-//void Player::CheckMapCollisionRight(CollisionMapInfo& info) {}
