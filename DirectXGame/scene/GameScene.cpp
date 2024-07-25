@@ -72,8 +72,19 @@ void GameScene::Initialize() {
 	model_ = Model::Create();
 	modelBlock_ = Model::Create();
 
+	mapChipField_ = new MapChipField;
+	mapChipField_->LoadMapChipCsv("Resources/map.csv");
+
 	// 自キャラの生成
 	player_ = new Player();
+
+	// 座標をマップチップ番号で固定
+	Vector3 playerPosition = mapChipField_->GetMapChipPositionByIndex(10, 18);
+
+	// 自キャラの初期化
+	player_->Initialize(model_, playerHandle_, &viewProjection_, playerPosition);
+
+	player_->SetMapChipField(mapChipField_);
 
 	// カメラコントローラーの初期化
 	// 生成
@@ -93,17 +104,8 @@ void GameScene::Initialize() {
 	// ビュープロジェクションの初期化
 	viewProjection_.Initialize();
 
-	// 座標をマップチップ番号で固定
-	Vector3 playerPosition = mapChipField_->GetMapChipPositionByIndex(10, 18);
-
-	// 自キャラの初期化
-	player_->Initialize(model_, playerHandle_, &viewProjection_,playerPosition);
-
 	// デバッグカメラの生成
 	debugCamera_ = new DebugCamera(1280, 720);
-
-	mapChipField_ = new MapChipField;
-	mapChipField_->LoadMapChipCsv("Resources/map.csv");
 
 	GenerateBlocks();
 
