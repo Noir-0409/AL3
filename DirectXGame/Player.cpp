@@ -232,7 +232,22 @@ void Player::CheckMapCollision(CollisionMapInfo& info) {
 
 void Player::CheckMapCollisionUp(CollisionMapInfo& info) {
 
-	info;
+	// 上昇あり？
+	if (info.move.y <= 0) {
+	
+	return;
+	
+	}
+
+	// 移動後の4つの角の座標
+	std::array<Vector3, kNumCorner> positionsNew;
+
+	for (uint32_t i = 0; i < positionsNew.size(); ++i) {
+	
+		positionsNew[i] =
+		    CornerPosition(worldTransform_.translation_ + info.move, static_cast<Corner>(i));
+	
+	}
 
 }
 
