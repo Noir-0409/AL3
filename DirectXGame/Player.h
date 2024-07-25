@@ -69,6 +69,7 @@ public:
 
 	void InpuMove();
 
+
 	void CheckMapCollision(CollisionMapInfo& info);
 
 	void CheckMapCollisionUp(CollisionMapInfo& info);
