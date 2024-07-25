@@ -100,7 +100,7 @@ return mapChipData_.data[yIndex][xIndex];
 
  }
 
- IndexSet MapChipField::GetMapChipIndexSetByPosition(const Vector3& position) { 
+ MapChipField::IndexSet MapChipField::GetMapChipIndexSetByPosition(const Vector3& position) { 
      
      IndexSet indexSet = {};
 

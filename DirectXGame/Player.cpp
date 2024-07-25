@@ -5,6 +5,7 @@
 #include <numbers>
 #include <Input.h>
 #include <algorithm>
+#include "MapChipField.h"
 
 void Player::Initialize( Model* model, uint32_t textureHandle, ViewProjection* viewProjection,const Vector3& position) {
 
@@ -247,6 +248,34 @@ void Player::CheckMapCollisionUp(CollisionMapInfo& info) {
 		positionsNew[i] =
 		    CornerPosition(worldTransform_.translation_ + info.move, static_cast<Corner>(i));
 	
+	}
+
+	MapChipType mapChipType;
+
+	// 真上の判定
+	bool hit = true;
+
+	// 左上の判定
+	MapChipField::IndexSet indexSet;
+
+	indexSet = mapChipField_->GetMapChipIndexSetByPosition(positionsNew[kLeftTop]);
+
+	mapChipType = mapChipField_->GetMapChipTypeByIndex(indexSet.xIndex, indexSet.yIndex);
+
+	if (mapChipType == MapChipType::kBlock) {
+	
+		hit = true;
+	
+	}
+
+	// 右上の判定
+	indexSet = mapChipField_->GetMapChipIndexSetByPosition(positionsNew[kRightTop]);
+
+	mapChipType = mapChipField_->GetMapChipTypeByIndex(indexSet.xIndex, indexSet.yIndex);
+
+	if (mapChipType == MapChipType::kBlock) {
+
+		hit = true;
 	}
 
 }

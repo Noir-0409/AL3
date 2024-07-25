@@ -16,16 +16,16 @@ struct MapChipData {
 
 };
 
-struct IndexSet {
-
-	uint32_t xIndex;
-	uint32_t yIndex;
-
-};
-
 class MapChipField {
 
 	public:
+
+		struct IndexSet {
+
+		    uint32_t xIndex;
+		    uint32_t yIndex;
+
+	    };
 
 	MapChipData mapChipData_;
 
