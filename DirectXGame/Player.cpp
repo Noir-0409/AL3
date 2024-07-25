@@ -278,6 +278,24 @@ void Player::CheckMapCollisionUp(CollisionMapInfo& info) {
 		hit = true;
 	}
 
+	// ブロックにヒット？
+	if (hit) {
+	
+	// めり込みを排除する方向に移動量を設定
+		indexSet = mapChipField_->GetMapChipIndexSetByPosition(
+		    worldTransform_.translation_ + Vector3(0, kHeight / 2.0f,0));
+
+		// めり込み先ブロックの範囲矩形
+		MapChipField::Rect rect = mapChipField_->GetRectByIndex(indexSet.xIndex, indexSet.yIndex);
+
+		// 移動量
+		info.move.y = std::max(
+		    0.0f, rect.bottom - worldTransform_.translation_.y - (kHeight / 2.0f + kBlank));
+
+		info.ceiling = true;
+	
+	}
+
 }
 
 Vector3 Player::CornerPosition(const Vector3& center, Corner corner) { 

@@ -27,6 +27,16 @@ class MapChipField {
 
 	    };
 
+		// 範囲矩形
+		struct Rect {
+
+			float left;
+		    float right;
+		    float bottom;
+		    float top;
+
+		};
+
 	MapChipData mapChipData_;
 
 	void ResetMapChipData();
@@ -41,6 +51,8 @@ class MapChipField {
 	auto GetNumBlockHorizontal() {return kNumBlockHorizontal;}
 
 	IndexSet GetMapChipIndexSetByPosition(const Vector3& position);
+
+	Rect GetRectByIndex(uint32_t xIndex, uint32_t yIndex);
 
 	private:
 
