@@ -100,7 +100,7 @@ private:
 	static inline const float kAttenuation = 0.1f;
 
 	// 最大速度
-	static inline const float kLimitRunSpeed = 0.8f;
+	static inline const float kLimitRunSpeed = 0.5f;
 
 	LRDirection lrDirection_ = LRDirection::kRight;
 
