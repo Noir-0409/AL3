@@ -26,11 +26,38 @@ void Player::Initialize( Model* model, uint32_t textureHandle, ViewProjection* v
 
 void Player::Update() {
 
+	InpuMove();
+
+	// 衝突情報を初期化
+	CollisionMapInfo collisionMapInfo;
+
+	// 移動量に速度を値をコピー
+	collisionMapInfo.move = velocity_;
+
+	// マップ衝突チェック
+	CheckMapCollision(collisionMapInfo);
+
+	// 移動
+	worldTransform_.translation_ += collisionMapInfo.move;
+
+	// 行列計算
+	worldTransform_.UpdateMatrix();
+}
+
+void Player::Draw() {
+
+	// 3Dモデルを描画
+	model_->Draw(worldTransform_, *viewProjection_, textureHandle_);
+
+}
+
+void Player::InpuMove() {
+
 	// 行列を定数バッファに転送
 	worldTransform_.TransferMatrix();
 
 	// 移動入力
-	
+
 	// 接地状態
 	if (onGround_) {
 
@@ -137,26 +164,24 @@ void Player::Update() {
 
 		// 移動
 		worldTransform_.translation_ += velocity_;
-	
+
 		if (Input::GetInstance()->PushKey(DIK_UP)) {
-		
-		// ジャンプ初速
+
+			// ジャンプ初速
 			velocity_ += Vector3(0, kJumpAcceleration, 0);
-	
 		}
 
 		// ジャンプ開始
 		if (velocity_.y > 0.0f) {
 
 			onGround_ = false;
-
 		}
-	
-// 空中
+
+		// 空中
 	} else {
 
-			// 落下速度
-			velocity_ += Vector3(0, -kGravityAcceleration, 0);
+		// 落下速度
+		velocity_ += Vector3(0, -kGravityAcceleration, 0);
 
 		worldTransform_.translation_ += Vector3(velocity_);
 
@@ -179,8 +204,8 @@ void Player::Update() {
 
 		// 着地
 		if (landing) {
-		
-		// めり込み排除
+
+			// めり込み排除
 			worldTransform_.translation_.y = 1.0f;
 
 			// 摩擦で横方向速度が減衰
@@ -191,18 +216,42 @@ void Player::Update() {
 
 			// 接地状態に移行
 			onGround_ = true;
-		
 		}
-	
 	}
 
-	// 行列計算
-	worldTransform_.UpdateMatrix();
 }
 
-void Player::Draw() {
+void Player::CheckMapCollision(CollisionMapInfo& info) {
 
-	// 3Dモデルを描画
-	model_->Draw(worldTransform_, *viewProjection_, textureHandle_);
+	CheckMapCollisionUp(info);
+	/*CheckMapCollisionDown(info);
+	CheckMapCollisionLeft(info);
+	CheckMapCollisionRight(info);*/
 
 }
+
+void Player::CheckMapCollisionUp(CollisionMapInfo& info) {
+
+	info;
+
+}
+
+Vector3 Player::CornerPosition(const Vector3& center, Corner corner) { 
+	
+	Vector3 offsetTable[kNumCorner] = {
+
+	    {+kWidth / 2.0f, -kHeight / 2.0f, 0},
+	    {-kWidth / 2.0f, -kHeight / 2.0f, 0},
+	    {+kWidth / 2.0f, +kHeight / 2.0f, 0},
+	    {-kWidth / 2.0f, +kHeight / 2.0f, 0},
+	};
+	
+	return center + offsetTable[static_cast<uint32_t>(corner)];
+
+}
+
+//void Player::CheckMapCollisionDown(CollisionMapInfo& info) {}
+//
+//void Player::CheckMapCollisionLeft(CollisionMapInfo& info) {}
+//
+//void Player::CheckMapCollisionRight(CollisionMapInfo& info) {}

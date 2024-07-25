@@ -23,6 +23,28 @@ public:
 
 	};
 
+	// マップとの当たり判定情報
+	struct CollisionMapInfo {
+
+		bool ceiling = false;
+		bool landing = false;
+		bool hitwall = false;
+		Vector3 move;
+
+	};
+
+	// 角
+	enum Corner {
+
+		kRightBottom,
+		kLeftBottom,
+		kRightTop,
+		kLeftTop,
+
+		kNumCorner // 要素数
+		
+	};
+
 	/// <summary>
 	/// 初期化
 	/// </summary>
@@ -44,6 +66,20 @@ public:
 	const Vector3& GetVelocity() const { return velocity_; }
 
 	void SetMapChipField(MapChipField* mapChipField) { mapChipField_ = mapChipField; }
+
+	void InpuMove();
+
+	void CheckMapCollision(CollisionMapInfo& info);
+
+	void CheckMapCollisionUp(CollisionMapInfo& info);
+
+	/*void CheckMapCollisionDown(CollisionMapInfo& info);
+
+	void CheckMapCollisionLeft(CollisionMapInfo& info);
+
+	void CheckMapCollisionRight(CollisionMapInfo& info);*/
+
+	Vector3 CornerPosition(const Vector3& center, Corner corner);
 
 private:
 	// ワールド変換データ
@@ -91,5 +127,9 @@ private:
 
 	// マップチップによるフィールド
 	MapChipField* mapChipField_ = nullptr;
+
+	// キャラクターの当たりサイズ
+	static inline const float kWidth = 0.8f;
+	static inline const float kHeight = 0.8f;
 
 };
