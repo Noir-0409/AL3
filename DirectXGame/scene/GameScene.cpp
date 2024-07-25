@@ -11,6 +11,8 @@ GameScene::~GameScene() {
 
 	delete model_;
 
+	delete modelBlock_;
+
 	for (std::vector<WorldTransform*>& worldTransformBlockLine : worldTransformBlocks_) {
 		for (WorldTransform* worldTransformBlock : worldTransformBlockLine) {
 			delete worldTransformBlock;
@@ -65,12 +67,14 @@ void GameScene::Initialize() {
 	audio_ = Audio::GetInstance();
 
 	// ファイル名を指定してテクスチャを読み込む
-	textureHandle_ = TextureManager::Load("./Resources/block/block.png");
+	 modelBlock_ = Model::CreateFromOBJ("block", true);
+	model_ = Model::CreateFromOBJ("player",true);
+	//textureHandle_ = TextureManager::Load("./Resources/block/block.png");
 	playerHandle_ = TextureManager::Load("./Resources./2.png");
 
 	// 3Dモデルの生成
 	model_ = Model::Create();
-	modelBlock_ = Model::Create();
+	//modelBlock_ = Model::Create();
 
 	mapChipField_ = new MapChipField;
 	mapChipField_->LoadMapChipCsv("Resources/map.csv");
@@ -202,7 +206,7 @@ void GameScene::Draw() {
 			if (!worldTransformBlockYoko)
 				continue;
 
-			modelBlock_->Draw(*worldTransformBlockYoko, viewProjection_,textureHandle_ );
+			modelBlock_->Draw(*worldTransformBlockYoko, viewProjection_ );
 		}
 	}
 
