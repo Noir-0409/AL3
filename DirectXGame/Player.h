@@ -76,13 +76,15 @@ public:
 
 	void CheckMapCollisionDown(CollisionMapInfo& info);
 
-	void CheckMapCollisionLeft(CollisionMapInfo& info);
+	//void CheckMapCollisionLeft(CollisionMapInfo& info);
 
 	//void CheckMapCollisionRight(CollisionMapInfo& info);
 
 	Vector3 CornerPosition(const Vector3& center, Corner corner);
 
 	void CollisionMove(const CollisionMapInfo& info);
+
+	void UpdateOnGround(const CollisionMapInfo& info);
 
 private:
 	// ワールド変換データ
@@ -136,5 +138,11 @@ private:
 	static inline const float kHeight = 0.8f;
 
 	static inline const float kBlank =0.04f;
+
+	// 着地時の速度減衰率
+	static inline const float kAttenuationLanding = 0.1f;
+
+	// ずらす定数
+	static inline const float kGroundSearchHeight = 0.01f;
 
 };
