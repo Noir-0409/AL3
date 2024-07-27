@@ -69,7 +69,6 @@ public:
 
 	void InpuMove();
 
-
 	void CheckMapCollision(CollisionMapInfo& info);
 
 	void CheckMapCollisionUp(CollisionMapInfo& info);
@@ -84,6 +83,9 @@ public:
 
 	void CollisionMove(const CollisionMapInfo& info);
 
+	// 接地状態の切り替え
+	void InputLanding(const CollisionMapInfo& info);
+
 private:
 	// ワールド変換データ
 	WorldTransform worldTransform_;
@@ -95,13 +97,13 @@ private:
 	ViewProjection* viewProjection_ = nullptr;
 
 	// 加速度
-	static inline const float kAcceleration = 0.1f;
+	static inline const float kAcceleration = 0.07f;
 
 	// 速度減衰率
-	static inline const float kAttenuation = 0.1f;
+	static inline const float kAttenuation = 0.3f;
 
 	// 最大速度
-	static inline const float kLimitRunSpeed = 0.5f;
+	static inline const float kLimitRunSpeed = 0.1f;
 
 	LRDirection lrDirection_ = LRDirection::kRight;
 
@@ -136,5 +138,11 @@ private:
 	static inline const float kHeight = 0.8f;
 
 	static inline const float kBlank =0.04f;
+
+	// 着地時の速度減衰率
+	static inline const float kAttenuationLanding = 0.1f;
+
+	// ずらすための定数
+	static inline const float kShift = 0.1f;
 
 };
