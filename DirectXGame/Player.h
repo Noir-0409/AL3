@@ -74,11 +74,11 @@ public:
 
 	void CheckMapCollisionUp(CollisionMapInfo& info);
 
-	/*void CheckMapCollisionDown(CollisionMapInfo& info);
+//	void CheckMapCollisionDown(CollisionMapInfo& info);
 
-	void CheckMapCollisionLeft(CollisionMapInfo& info);
+//	void CheckMapCollisionLeft(CollisionMapInfo& info);
 
-	void CheckMapCollisionRight(CollisionMapInfo& info);*/
+	//void CheckMapCollisionRight(CollisionMapInfo& info);
 
 	Vector3 CornerPosition(const Vector3& center, Corner corner);
 
@@ -101,7 +101,7 @@ private:
 	static inline const float kAttenuation = 0.1f;
 
 	// 最大速度
-	static inline const float kLimitRunSpeed = 0.5f;
+	static inline const float kLimitRunSpeed = 0.1f;
 
 	LRDirection lrDirection_ = LRDirection::kRight;
 
