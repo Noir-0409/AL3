@@ -74,9 +74,9 @@ public:
 
 	void CheckMapCollisionUp(CollisionMapInfo& info);
 
-//	void CheckMapCollisionDown(CollisionMapInfo& info);
+	void CheckMapCollisionDown(CollisionMapInfo& info);
 
-//	void CheckMapCollisionLeft(CollisionMapInfo& info);
+	void CheckMapCollisionLeft(CollisionMapInfo& info);
 
 	//void CheckMapCollisionRight(CollisionMapInfo& info);
 
