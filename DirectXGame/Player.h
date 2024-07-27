@@ -143,6 +143,6 @@ private:
 	static inline const float kAttenuationLanding = 0.1f;
 
 	// ずらすための定数
-	static inline const float kShift = 0.1f;
+	static inline const float kShift = 0.01f;
 
 };
