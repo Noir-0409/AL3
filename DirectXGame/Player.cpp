@@ -308,25 +308,52 @@ void Player::CheckMapCollisionUp(CollisionMapInfo& info) {
 
 }
 
-//void Player::CheckMapCollisionDown(CollisionMapInfo& info) {
-//
-//// 下降あり？
-//	if (info.move.y >= 0) {
-//	
-//		return;
-//	
-//	}
-//
-//	// 移動後の4つの角の座標
-//	std::array<Vector3, kNumCorner> positionsNew;
-//
-//	for (uint32_t i = 0; i < positionsNew.size(); ++i) {
-//
-//		positionsNew[i] =
-//		    CornerPosition(worldTransform_.translation_ + info.move, static_cast<Corner>(i));
-//	}
-//
-//}
+void Player::CheckMapCollisionDown(CollisionMapInfo& info) {
+
+// 下降あり？
+	if (info.move.y >= 0) {
+	
+		return;
+	
+	}
+
+	// 移動後の4つの角の座標
+	std::array<Vector3, kNumCorner> positionsNew;
+
+	for (uint32_t i = 0; i < positionsNew.size(); ++i) {
+
+		positionsNew[i] =
+		    CornerPosition(worldTransform_.translation_ + info.move, static_cast<Corner>(i));
+
+	}
+
+	MapChipType mapChipType;
+
+	// 真下の判定
+	bool hit = false;
+
+	// 左下の判定
+	MapChipField::IndexSet indexSet;
+
+	indexSet = mapChipField_->GetMapChipIndexSetByPosition(positionsNew[kLeftBottom]);
+
+	mapChipType = mapChipField_->GetMapChipTypeByIndex(indexSet.xIndex, indexSet.yIndex);
+
+	if (mapChipType == MapChipType::kBlock) {
+
+		hit = true;
+	}
+
+	// 右下の判定
+	indexSet = mapChipField_->GetMapChipIndexSetByPosition(positionsNew[kRightBottom]);
+
+	mapChipType = mapChipField_->GetMapChipTypeByIndex(indexSet.xIndex, indexSet.yIndex);
+
+	if (mapChipType == MapChipType::kBlock) {
+
+		hit = true;
+	}
+}
 
 Vector3 Player::CornerPosition(const Vector3& center, Corner corner) { 
 	
