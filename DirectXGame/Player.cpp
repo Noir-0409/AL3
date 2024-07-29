@@ -226,9 +226,9 @@ void Player::InpuMove() {
 void Player::CheckMapCollision(CollisionMapInfo& info) {
 
 	CheckMapCollisionUp(info);
-	/*CheckMapCollisionDown(info);
-	CheckMapCollisionLeft(info);
-	CheckMapCollisionRight(info);*/
+	CheckMapCollisionDown(info);
+	//CheckMapCollisionLeft(info);
+	//CheckMapCollisionRight(info);
 
 }
 
@@ -352,6 +352,22 @@ void Player::CheckMapCollisionDown(CollisionMapInfo& info) {
 	if (mapChipType == MapChipType::kBlock) {
 
 		hit = true;
+	}
+
+	// ブロックにヒット？
+	if (hit) {
+	
+	// めり込みを排除
+		indexSet = mapChipField_->GetMapChipIndexSetByPosition(
+		    worldTransform_.translation_ + Vector3(0, -kHeight / 2.0f, 0));
+
+		// めり込み先ブロックの範囲矩形
+		MapChipField::Rect rect = mapChipField_->GetRectByIndex(indexSet.xIndex, indexSet.yIndex);
+
+		info.move.y=std::min(0.0f,rect.top-worldTransform_.translation_.y+(kHeight/2.0f+kBlank));
+
+		info.landing = true;
+	
 	}
 }
 
