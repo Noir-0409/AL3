@@ -333,16 +333,15 @@ void Player::CheckMapCollisionDown(CollisionMapInfo& info) {
 		    CornerPosition(worldTransform_.translation_ + info.move, static_cast<Corner>(i));
 	}
 
-	MapChipType mapChipType;
-
 	// 真下の判定
 	bool hit = false;
+
+	MapChipType mapChipType;
 
 	// 左上の判定
 	MapChipField::IndexSet indexSet;
 
-	indexSet = mapChipField_->GetMapChipIndexSetByPosition(
-	    positionsNew[kLeftBottom] + Vector3(0, -kGroundSearchHeight, 0));
+	indexSet = mapChipField_->GetMapChipIndexSetByPosition(positionsNew[kLeftBottom]);
 
 	mapChipType = mapChipField_->GetMapChipTypeByIndex(indexSet.xIndex, indexSet.yIndex);
 
@@ -352,8 +351,7 @@ void Player::CheckMapCollisionDown(CollisionMapInfo& info) {
 	}
 
 	// 右上の判定
-	indexSet = mapChipField_->GetMapChipIndexSetByPosition(
-	    positionsNew[kRightBottom] + Vector3(0, -kGroundSearchHeight, 0));
+	indexSet = mapChipField_->GetMapChipIndexSetByPosition(positionsNew[kRightBottom]);
 
 	mapChipType = mapChipField_->GetMapChipTypeByIndex(indexSet.xIndex, indexSet.yIndex);
 
@@ -383,7 +381,7 @@ void Player::CheckMapCollisionDown(CollisionMapInfo& info) {
 
 			// 移動量
 			info.move.y = std::min(
-			    0.0f, rect.top - worldTransform_.translation_.y + (kHeight / 2.0f + kBlank));
+			    0.0f, rect.top - worldTransform_.translation_.y - (kHeight / 2.0f + kBlank));
 
 			info.landing = true;
 
@@ -488,8 +486,6 @@ void Player::UpdateOnGround(const CollisionMapInfo& info) {
 
 			// Y速度を0にする
 			velocity_.y = 0.0f;
-
-			DebugText::GetInstance()->ConsolePrintf("onGround");
 		}
 	}
 }
