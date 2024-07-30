@@ -76,9 +76,9 @@ public:
 
 	void CheckMapCollisionDown(CollisionMapInfo& info);
 
-//	void CheckMapCollisionLeft(CollisionMapInfo& info);
+	void CheckMapCollisionLeft(CollisionMapInfo& info);
 
-	//void CheckMapCollisionRight(CollisionMapInfo& info);
+	void CheckMapCollisionRight(CollisionMapInfo& info);
 
 	Vector3 CornerPosition(const Vector3& center, Corner corner);
 
@@ -86,6 +86,9 @@ public:
 
 	// 接地状態の切り替え処理
 	void UpdateOnGround(const CollisionMapInfo& info);
+
+	// 壁に接触している場合の処理
+	void UpdateHitWall(const CollisionMapInfo& info);
 
 private:
 	// ワールド変換データ
@@ -145,5 +148,8 @@ private:
 
 	// ずらす定数
 	static inline const float kGroundSearchHeight = 0.01f;
+
+	// 着地時の速度減衰率
+	static inline const float kAttenuationWall = 0.1f;
 
 };
