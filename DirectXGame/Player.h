@@ -84,6 +84,9 @@ public:
 
 	void CollisionMove(const CollisionMapInfo& info);
 
+	// 接地状態の切り替え処理
+	void UpdateOnGround(const CollisionMapInfo& info);
+
 private:
 	// ワールド変換データ
 	WorldTransform worldTransform_;
@@ -136,5 +139,11 @@ private:
 	static inline const float kHeight = 0.8f;
 
 	static inline const float kBlank =0.04f;
+
+	// 着地時の速度減衰率
+	static inline const float kAttenuationLanding = 0.1f;
+
+	// ずらす定数
+	static inline const float kGroundSearchHeight = 0.01f;
 
 };

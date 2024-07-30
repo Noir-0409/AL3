@@ -107,7 +107,7 @@ return mapChipData_.data[yIndex][xIndex];
      indexSet.xIndex = static_cast<uint32_t>((position.x + kBlockWidth / 2.0f) / kBlockWidth);
 
      indexSet.yIndex = kNumBlockVirtical - 1 -
-	                   static_cast<uint32_t>(position.y + kBlockHeight / 2.0f / kBlockHeight);
+	                   static_cast<uint32_t>((position.y + kBlockHeight / 2.0f) / kBlockHeight);
      
      return indexSet;
 
