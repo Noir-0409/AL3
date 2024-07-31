@@ -13,6 +13,7 @@
 #include "CameraController.h"
 
 #include <vector>
+#include <Enemy.h>
 
 /// <summary>
 /// ゲームシーン
@@ -64,6 +65,8 @@ private: // メンバ変数
 	// 3Dモデル
 	Model* model_ = nullptr;
 	Model* modelBlock_ = nullptr;
+	Model* enemyModel_ = nullptr;
+
 	// ワールドトランスフォーム
 	WorldTransform worldTransform_;
 	
@@ -74,6 +77,9 @@ private: // メンバ変数
 
 	// 自キャラ
 	Player* player_ = nullptr;
+
+	// 敵
+	Enemy* enemy_ = nullptr;
 
 	// 縦横ブロック配列
 	std::vector<std::vector<WorldTransform*>> worldTransformBlocks_;

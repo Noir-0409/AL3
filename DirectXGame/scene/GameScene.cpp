@@ -13,6 +13,8 @@ GameScene::~GameScene() {
 
 	delete modelBlock_;
 
+	delete enemyModel_;
+
 	for (std::vector<WorldTransform*>& worldTransformBlockLine : worldTransformBlocks_) {
 		for (WorldTransform* worldTransformBlock : worldTransformBlockLine) {
 			delete worldTransformBlock;
@@ -69,6 +71,7 @@ void GameScene::Initialize() {
 	// ファイル名を指定してテクスチャを読み込む
 	 modelBlock_ = Model::CreateFromOBJ("block", true);
 	model_ = Model::CreateFromOBJ("player",true);
+	 enemyModel_ = Model::CreateFromOBJ("enemy", true);
 	//textureHandle_ = TextureManager::Load("./Resources/block/block.png");
 //	playerHandle_ = TextureManager::Load("./Resources./2.png");
 
@@ -82,14 +85,23 @@ void GameScene::Initialize() {
 	// 自キャラの生成
 	player_ = new Player();
 
+	enemy_ = new Enemy();
+
 	// 座標をマップチップ番号で固定
 	Vector3 playerPosition = mapChipField_->GetMapChipPositionByIndex(10, 18);
+
+	Vector3 enemyPosition = mapChipField_->GetMapChipPositionByIndex(15, 18);
 
 	// 自キャラの初期化
 	//player_->Initialize(model_, playerHandle_, &viewProjection_, playerPosition);
 	player_->Initialize(model_, &viewProjection_, playerPosition);
 
 	player_->SetMapChipField(mapChipField_);
+
+	// 敵の初期化
+	enemy_->Initialize(enemyModel_, &viewProjection_, enemyPosition);
+
+	enemy_->SetMapChipField(mapChipField_);
 
 	// カメラコントローラーの初期化
 	// 生成
@@ -152,6 +164,8 @@ void GameScene::Update() {
 	// 自キャラの更新
 	player_->Update();
 
+	enemy_->Update();
+
 	// 縦横ブロック更新
 	for (std::vector<WorldTransform*> worldTransformBlockTate : worldTransformBlocks_) {
 		for (WorldTransform* worldTransformBlockYoko : worldTransformBlockTate) {
@@ -200,6 +214,9 @@ void GameScene::Draw() {
 	//	model_->Draw(worldTransform_, viewProjection_, textureHandle_);
 	// 自キャラの描画
 		player_->Draw();
+
+		// 敵の描画
+		enemy_->Draw();
 
 	// 縦横ブロック描画
 	for (std::vector<WorldTransform*> worldTransformBlockTate : worldTransformBlocks_) {
