@@ -313,7 +313,8 @@ void Player::CheckMapCollisionDown(CollisionMapInfo& info) {
 
 	indexSet = mapChipField_->GetMapChipIndexSetByPosition(positionsNew[kLeftBottom]);
 
-	mapChipType = mapChipField_->GetMapChipTypeByIndex(indexSet.xIndex, indexSet.yIndex);
+	mapChipType =
+	    mapChipField_->GetMapChipTypeByIndex(indexSet.xIndex, indexSet.yIndex );
 
 	if (mapChipType == MapChipType::kBlock) {
 
@@ -323,7 +324,8 @@ void Player::CheckMapCollisionDown(CollisionMapInfo& info) {
 	// 右下の判定
 	indexSet = mapChipField_->GetMapChipIndexSetByPosition(positionsNew[kRightBottom]);
 
-	mapChipType = mapChipField_->GetMapChipTypeByIndex(indexSet.xIndex, indexSet.yIndex);
+	mapChipType =
+	    mapChipField_->GetMapChipTypeByIndex(indexSet.xIndex, indexSet.yIndex );
 
 	if (mapChipType == MapChipType::kBlock) {
 
@@ -510,10 +512,9 @@ if (mapChipType == MapChipType::kBlock && mapChipTypeNext != MapChipType::kBlock
 			MapChipField::Rect rect =
 			    mapChipField_->GetRectByIndex(indexSet.xIndex, indexSet.yIndex);
 			
-			//info.move.x = std::max(
-			//    0.0f, rect.left - worldTransform_.translation_.x - (kWidth / 2.0f + kBlank));
+			info.move.x = std::max(
+			    0.0f, rect.left - worldTransform_.translation_.x - (kWidth / 2.0f + kBlank));
 
-			info.move.x = rect.left - worldTransform_.translation_.x - (kWidth / 2.0f + kBlank);
 
 			info.hitwall = true;
 	

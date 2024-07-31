@@ -124,12 +124,12 @@ private:
 	bool onGround_ = true;
 
 	// 重力加速度
-	static inline const float kGravityAcceleration = 1.1f;
+	static inline const float kGravityAcceleration = 0.98f;
 
 	static inline const float kLimitFallSpeed = 1.0f; 
 
 	// ジャンプ初速
-	static inline const float kJumpAcceleration = 25.0f;
+	static inline const float kJumpAcceleration = 15.0f;
 
 	Vector3 velocity_ = {};
 
