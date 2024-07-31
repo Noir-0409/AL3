@@ -124,13 +124,12 @@ private:
 	bool onGround_ = true;
 
 	// 重力加速度
-	static inline const float kGravityAcceleration = 0.98f;
+	static inline const float kGravityAcceleration = 1.1f;
 
-	// 最大落下速度
 	static inline const float kLimitFallSpeed = 1.0f; 
 
 	// ジャンプ初速
-	static inline const float kJumpAcceleration = 20.0f;
+	static inline const float kJumpAcceleration = 25.0f;
 
 	Vector3 velocity_ = {};
 
@@ -147,9 +146,9 @@ private:
 	static inline const float kAttenuationLanding = 0.1f;
 
 	// ずらす定数
-	static inline const float kGroundSearchHeight = 0.01f;
+	static inline const float kGroundSearchHeight = 0.06f;
 
 	// 着地時の速度減衰率
-	static inline const float kAttenuationWall = 0.1f;
+	static inline const float kAttenuationWall = 0.2f;
 
 };
