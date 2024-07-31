@@ -21,12 +21,23 @@ GameScene::~GameScene() {
 		}
 	}
 
+
+
 	worldTransformBlocks_.clear();
 
 	delete debugCamera_;
 
 	// マップチップフィールドの解放
 	delete mapChipField_;
+
+	// 敵の解放
+	for (Enemy* enemy : enemies_) {
+	
+		delete enemy;
+	
+	}
+
+	enemies_.clear();
 
 }
 
@@ -85,7 +96,34 @@ void GameScene::Initialize() {
 	// 自キャラの生成
 	player_ = new Player();
 
-	enemy_ = new Enemy();
+	//enemy_ = new Enemy();
+
+	//for (int32_t i = 0; i < 3; ++i) {
+	//
+	//Enemy* newEnemy = new Enemy();
+	//
+	//// 一体ずつ違う座標をセット
+	//Vector3 enemyPosition;
+
+	//newEnemy->Initialize(enemyModel_, &viewProjection_, enemyPosition);
+
+	//enemies_.push_back(newEnemy);
+	//
+	//}
+
+	Vector3 basePosition = {25.0f, 1.0f, 0.0f}; // 基準となる位置
+	Vector3 offset = {3.0f, 3.0f, 0.0f};         // 各敵の間隔
+
+	for (int32_t i = 0; i < 3; ++i) {
+		Enemy* newEnemy = new Enemy();
+
+		// 一体ずつ違う座標をセット
+		Vector3 enemyPosition = basePosition + offset * static_cast<float>(i);
+
+		newEnemy->Initialize(enemyModel_, &viewProjection_, enemyPosition);
+
+		enemies_.push_back(newEnemy);
+	}
 
 	// 座標をマップチップ番号で固定
 	Vector3 playerPosition = mapChipField_->GetMapChipPositionByIndex(10, 18);
@@ -99,9 +137,9 @@ void GameScene::Initialize() {
 	player_->SetMapChipField(mapChipField_);
 
 	// 敵の初期化
-	enemy_->Initialize(enemyModel_, &viewProjection_, enemyPosition);
+	//enemy_->Initialize(enemyModel_, &viewProjection_, enemyPosition);
 
-	enemy_->SetMapChipField(mapChipField_);
+	//enemies_->SetMapChipField(mapChipField_);
 
 	// カメラコントローラーの初期化
 	// 生成
@@ -164,7 +202,11 @@ void GameScene::Update() {
 	// 自キャラの更新
 	player_->Update();
 
-	enemy_->Update();
+	//enemy_->Update();
+
+	 for (Enemy* enemy : enemies_) {
+		enemy->Update();
+	}
 
 	// 縦横ブロック更新
 	for (std::vector<WorldTransform*> worldTransformBlockTate : worldTransformBlocks_) {
@@ -216,7 +258,12 @@ void GameScene::Draw() {
 		player_->Draw();
 
 		// 敵の描画
-		enemy_->Draw();
+		//enemy_->Draw();
+
+		for (Enemy* enemy : enemies_) {
+		enemy->Draw();
+	    }
+
 
 	// 縦横ブロック描画
 	for (std::vector<WorldTransform*> worldTransformBlockTate : worldTransformBlocks_) {

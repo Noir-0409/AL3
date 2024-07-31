@@ -79,7 +79,8 @@ private: // メンバ変数
 	Player* player_ = nullptr;
 
 	// 敵
-	Enemy* enemy_ = nullptr;
+	//Enemy* enemy_ = nullptr;
+	std::list<Enemy*> enemies_;
 
 	// 縦横ブロック配列
 	std::vector<std::vector<WorldTransform*>> worldTransformBlocks_;
