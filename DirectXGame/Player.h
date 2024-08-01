@@ -3,6 +3,7 @@
 #include "WorldTransform.h"
 #include "MapChipField.h"
 #include "MathUtilityForText.h"
+#include <AABB.h>
 
 /// <summary>
 /// 自キャラ
@@ -90,6 +91,12 @@ public:
 	// 壁に接触している場合の処理
 	void UpdateHitWall(const CollisionMapInfo& info);
 
+	// ワールド座標を取得
+	Vector3 GetWorldPosition();
+
+	// AABBを取得
+	AABB GetAABB();
+
 private:
 	// ワールド変換データ
 	WorldTransform worldTransform_;
@@ -132,9 +139,6 @@ private:
 	static inline const float kJumpAcceleration = 15.0f;
 
 	Vector3 velocity_ = {};
-
-	// ワールド座標を取得
-	Vector3 GetWorldPosition();
 
 	// マップチップによるフィールド
 	MapChipField* mapChipField_ = nullptr;

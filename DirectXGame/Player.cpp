@@ -641,20 +641,35 @@ void Player::UpdateHitWall(const CollisionMapInfo& info) {
 }
 
 Vector3 Player::GetWorldPosition() {
-	
+
 	// ワールド座標を取得
-	//Vector3 worldPos;
+	Vector3 worldPos;
 
-	//// ワールド行列の平行移動成分を取得
-	//// ワールド行列のTx
-	//worldPos.x=
+	// ワールド行列の平行移動成分を取得
+	// ワールド行列のTx
+	worldPos.x = worldTransform_.translation_.x;
 
-	//// ワールド行列のTy
-	//    worldPos.y =
+	// ワールド行列のTy
+	worldPos.y = worldTransform_.translation_.y;
 
-	//// ワールド行列のTz
-	//    worldPos.z =
+	// ワールド行列のTz
+	worldPos.z = worldTransform_.translation_.z;
 
-	//return worldPos; 
+	return worldPos;
+}
+
+AABB Player::GetAABB() { 
+	
+	Vector3 worldPos = GetWorldPosition();
+
+	AABB aabb;
+
+	aabb.min_ = {
+	    worldPos.x - kWidth / 2.0f, worldPos.y - kHeight / 2.0f, worldPos.z - kWidth / 2.0f};
+
+	aabb.max_ = {
+	    worldPos.x + kWidth / 2.0f, worldPos.y + kHeight / 2.0f, worldPos.z + kWidth / 2.0f};
+	
+	return aabb; 
 
 }
