@@ -133,6 +133,9 @@ private:
 
 	Vector3 velocity_ = {};
 
+	// ワールド座標を取得
+	Vector3 GetWorldPosition();
+
 	// マップチップによるフィールド
 	MapChipField* mapChipField_ = nullptr;
 

@@ -639,3 +639,22 @@ void Player::UpdateHitWall(const CollisionMapInfo& info) {
 	}
 
 }
+
+Vector3 Player::GetWorldPosition() {
+	
+	// ワールド座標を取得
+	Vector3 worldPos;
+
+	// ワールド行列の平行移動成分を取得
+	// ワールド行列のTx
+	//worldPos.x=
+
+	//// ワールド行列のTy
+	//    worldPos.y =
+
+	//// ワールド行列のTz
+	//    worldPos.z =
+
+	return worldPos; 
+
+}
