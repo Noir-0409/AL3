@@ -17,3 +17,11 @@ Vector3 Multiply(float scalar, const Vector3& v);
 Vector3 operator*(float s, const Vector3& v); 
 
 Vector3 operator*(const Vector3& v, float s);
+
+struct AABB {
+
+	Vector3 min;
+	Vector3 max;
+};
+
+bool IsCollision(const AABB& aabb1, const AABB& aabb2);

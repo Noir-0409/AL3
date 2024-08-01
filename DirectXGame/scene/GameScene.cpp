@@ -73,6 +73,27 @@ void GameScene::GenerateBlocks() {
 	}
 }
 
+void GameScene::CheckAllCollisons() {
+
+// 判定対象1と2の座標
+	AABB aabb1, aabb2;
+
+	// 自キャラの座標
+	aabb1 = player_->GetAABB();
+
+	// 自キャラと敵全ての当たり判定
+	for (Enemy* enemy : enemies_) {
+	
+	// 敵の座標
+		aabb2 = enemy->GetAABB();
+
+		// AABB同士の交差判定
+
+	
+	}
+
+}
+
 void GameScene::Initialize() {
 
 	dxCommon_ = DirectXCommon::GetInstance();
@@ -95,21 +116,6 @@ void GameScene::Initialize() {
 
 	// 自キャラの生成
 	player_ = new Player();
-
-	//enemy_ = new Enemy();
-
-	//for (int32_t i = 0; i < 3; ++i) {
-	//
-	//Enemy* newEnemy = new Enemy();
-	//
-	//// 一体ずつ違う座標をセット
-	//Vector3 enemyPosition;
-
-	//newEnemy->Initialize(enemyModel_, &viewProjection_, enemyPosition);
-
-	//enemies_.push_back(newEnemy);
-	//
-	//}
 
 	Vector3 basePosition = {25.0f, 1.0f, 0.0f}; // 基準となる位置
 	Vector3 offset = {3.0f, 3.0f, 0.0f};         // 各敵の間隔
@@ -223,7 +229,10 @@ void GameScene::Update() {
 	cameraContoller_->Update();
 
 	CameraController::Rect cameraArea_ = {12.0f, 100 - 12.0f, 6.0f, 6.0f};
+
 	cameraContoller_->SetMovableArea(cameraArea_);
+
+	CheckAllCollisons();
 }
 
 void GameScene::Draw() {
