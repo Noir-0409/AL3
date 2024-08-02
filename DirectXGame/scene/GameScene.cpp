@@ -70,6 +70,12 @@ void GameScene::GenerateBlocks() {
 	}
 }
 
+void GameScene::CheckAllCollision() {
+
+	// 判定対象と
+
+}
+
 void GameScene::Initialize() {
 
 	dxCommon_ = DirectXCommon::GetInstance();
@@ -203,6 +209,9 @@ void GameScene::Update() {
 			worldTransformBlockYoko->UpdateMatrix();
 		}
 	}
+
+	// 全ての当たり判定を行う
+	CheckAllCollision();
 
 	// カメラコントローラーの更新
 	cameraContoller_->Update();
