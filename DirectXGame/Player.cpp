@@ -672,3 +672,12 @@ aabb.max = {worldPos.x + kWidth / 2.0f, worldPos.y + kHeight / 2.0f, worldPos.z 
 return aabb;
 
 }
+
+void Player::OnCollision(const Enemy* enemy) {
+
+	(void)enemy;
+
+	// ジャンプ開始
+	velocity_.y += 0.1f;
+
+}

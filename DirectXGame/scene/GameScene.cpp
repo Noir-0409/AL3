@@ -2,6 +2,7 @@
 #include "TextureManager.h"
 #include "myMath.h"
 #include <cassert>
+#include "AABB.h"
 
 GameScene::GameScene() {}
 
@@ -70,23 +71,34 @@ void GameScene::GenerateBlocks() {
 	}
 }
 
-//void GameScene::CheckAllCollision() {
-//
-//	// 判定対象1と2の座標
-//	AABB aabb1, aabb2;
-//
-//	// 自キャラの座標
-//	aabb1 = player_->GetAABB();
-//
-//	// 自キャラと敵弾全ての当たり判定
-//	for (Enemy* enemy : enemies_) {
-//	
-//	// 敵弾の座標
-//		aabb2 = enemy->GetAABB();
-//
-//	}
-//
-//}
+void GameScene::CheckAllCollision() {
+
+	// 判定対象1と2の座標
+	AABB aabb1, aabb2;
+
+	// 自キャラの座標
+	aabb1 = player_->GetAABB();
+
+	// 自キャラと敵弾全ての当たり判定
+	for (Enemy* enemy : enemies_) {
+	
+	// 敵弾の座標
+		aabb2 = enemy->GetAABB();
+
+		// AABB同士の交差判定
+		if (AABB::IsCollision(aabb1, aabb2)) {
+		
+		// 自キャラの衝突時コールバックを呼び出す
+			player_->OnCollision(enemy);
+
+		// 敵弾の衝突時コールバックを呼び出す
+			enemy->OnCollision(player_);
+
+		}
+
+	}
+
+}
 
 void GameScene::Initialize() {
 
@@ -223,7 +235,7 @@ void GameScene::Update() {
 	}
 
 	// 全ての当たり判定を行う
-	//CheckAllCollision();
+	CheckAllCollision();
 
 	// カメラコントローラーの更新
 	cameraContoller_->Update();
