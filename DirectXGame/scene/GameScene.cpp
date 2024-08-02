@@ -88,7 +88,15 @@ void GameScene::CheckAllCollisons() {
 		aabb2 = enemy->GetAABB();
 
 		// AABB同士の交差判定
+		if (IsCollision(aabb1, aabb2)) {
+		
+		// 自キャラの衝突時コールバックを呼び出す
+			player_->OnCollision(enemy);
+		
+		// 敵弾の衝突時コールバックを呼び出す
+			enemy->OnCollision(player_);
 
+		}
 	
 	}
 

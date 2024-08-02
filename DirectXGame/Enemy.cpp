@@ -88,3 +88,9 @@ Vector3 worldPos = GetWorldPosition();
 
 }
 
+void Enemy::OnCollision(const Player* player) {
+
+	(void)player;
+
+}
+

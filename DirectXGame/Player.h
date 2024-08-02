@@ -12,6 +12,8 @@
 
 class MapChipField;
 
+class Enemy;
+
 class Player {
 
 public:
@@ -96,6 +98,9 @@ public:
 
 	// AABBを取得
 	AABB GetAABB();
+
+	// 衝突応答
+	void OnCollision(const Enemy* enemy);
 
 private:
 	// ワールド変換データ
