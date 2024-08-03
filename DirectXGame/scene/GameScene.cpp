@@ -16,6 +16,12 @@ GameScene::~GameScene() {
 
 	delete enemyModel_;
 
+	if (deathParticles_) {
+
+		delete particleModel_;
+	
+	}
+
 	for (std::vector<WorldTransform*>& worldTransformBlockLine : worldTransformBlocks_) {
 		for (WorldTransform* worldTransformBlock : worldTransformBlockLine) {
 			delete worldTransformBlock;
@@ -110,6 +116,7 @@ void GameScene::Initialize() {
 	 modelBlock_ = Model::CreateFromOBJ("block", true);
 	model_ = Model::CreateFromOBJ("player",true);
 	 enemyModel_ = Model::CreateFromOBJ("enemy", true);
+	particleModel_ = Model::CreateFromOBJ("deathParticle", true);
 	//textureHandle_ = TextureManager::Load("./Resources/block/block.png");
 //	playerHandle_ = TextureManager::Load("./Resources./2.png");
 
@@ -154,6 +161,11 @@ Vector3 basePosition = {25.0f, 1.0f, 0.0f}; // 基準となる位置
 //	enemy_->Initialize(enemyModel_, &viewProjection_, enemyPosition);
 
 	//enemy_->SetMapChipField(mapChipField_);
+
+	// 生成処理
+	deathParticles_ = new DeathParticle;
+
+	deathParticles_->Initialize(particleModel_, &viewProjection_, playerPosition);
 
 	// カメラコントローラーの初期化
 	// 生成
@@ -234,6 +246,13 @@ void GameScene::Update() {
 		}
 	}
 
+	// デスパーティクルが存在するなら
+	if (deathParticles_) {
+	
+	deathParticles_->Update();
+	
+	}
+
 	// 全ての当たり判定を行う
 	CheckAllCollision();
 
@@ -290,6 +309,12 @@ void GameScene::Draw() {
 
 			modelBlock_->Draw(*worldTransformBlockYoko, viewProjection_ );
 		}
+	}
+
+	if (deathParticles_) {
+	
+	deathParticles_->Draw();
+	
 	}
 
 	// 3Dオブジェクト描画後処理
