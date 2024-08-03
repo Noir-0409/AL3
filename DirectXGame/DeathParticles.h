@@ -4,7 +4,6 @@
 class DeathParticle {
 
 public:
-
 	/// <summary>
 	/// 初期化
 	/// </summary>
@@ -25,9 +24,7 @@ public:
 
 	std::array<WorldTransform, kNumParticles> worldTransforms_;
 
-	private:
-
+private:
 	Model* particleModel_ = nullptr;           // パーティクルのモデル
-    ViewProjection* viewProjection_ = nullptr; // ビュー・プロジェクションデータ
-
+	ViewProjection* viewProjection_ = nullptr; // ビュー・プロジェクションデータ
 };

@@ -3,6 +3,7 @@
 #include "myMath.h"
 #include <cassert>
 #include "AABB.h"
+#include "DeathParticles.h"
 
 GameScene::GameScene() {}
 
@@ -110,6 +111,7 @@ void GameScene::Initialize() {
 	 modelBlock_ = Model::CreateFromOBJ("block", true);
 	model_ = Model::CreateFromOBJ("player",true);
 	 enemyModel_ = Model::CreateFromOBJ("enemy", true);
+	particleModel_ = Model::CreateFromOBJ("deathParticle", true);
 	//textureHandle_ = TextureManager::Load("./Resources/block/block.png");
 //	playerHandle_ = TextureManager::Load("./Resources./2.png");
 
@@ -177,6 +179,9 @@ Vector3 basePosition = {25.0f, 1.0f, 0.0f}; // 基準となる位置
 	debugCamera_ = new DebugCamera(1280, 720);
 
 	GenerateBlocks();
+
+	// 仮の生成処理
+//	deatParticles_ = new DeathParticle;
 
 }
 
@@ -291,6 +296,8 @@ void GameScene::Draw() {
 			modelBlock_->Draw(*worldTransformBlockYoko, viewProjection_ );
 		}
 	}
+
+	//deatParticles_->Draw();
 
 	// 3Dオブジェクト描画後処理
 	Model::PostDraw();

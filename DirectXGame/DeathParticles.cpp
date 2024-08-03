@@ -3,40 +3,33 @@
 void DeathParticle::Initialize(
     Model* model, ViewProjection* viewProjection, const Vector3& position) {
 
-   particleModel_ = model;
+	particleModel_ = model;
 
-   viewProjection_ = viewProjection;
+	viewProjection_ = viewProjection;
 
-   // ワールド変換の初期化
-   for (auto& worldTransform : worldTransforms_) {
-   
-   worldTransform.Initialize();
+	// ワールド変換の初期化
+	for (auto& worldTransform : worldTransforms_) {
 
-   worldTransform.translation_ = position;
-   
-   }
+		worldTransform.Initialize();
 
+		worldTransform.translation_ = position;
+	}
 }
 
 void DeathParticle::Update() {
 
-    // ワールド座標の更新
-   for (auto& worldTransform : worldTransforms_) {
-   
-   worldTransform.UpdateMatrix();
-   
-   }
+	// ワールド座標の更新
+	for (auto& worldTransform : worldTransforms_) {
+
+		worldTransform.UpdateMatrix();
+	}
 }
 
 void DeathParticle::Draw() {
 
-// モデルの描画
-   for (const auto& worldTransform : worldTransforms_) {
+	// モデルの描画
+	for (const auto& worldTransform : worldTransforms_) {
 
-   particleModel_->Draw(worldTransform, *viewProjection_);
-
-   }
-
-  
-
+		particleModel_->Draw(worldTransform, *viewProjection_);
+	}
 }
