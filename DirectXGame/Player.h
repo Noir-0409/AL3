@@ -102,6 +102,8 @@ public:
 	// 衝突応答
 	void OnCollision(const Enemy* enemy);	
 
+	bool IsDead() const { return isDead_; }
+
 private:
 	// ワールド変換データ
 	WorldTransform worldTransform_;
@@ -162,5 +164,7 @@ private:
 
 	// 着地時の速度減衰率
 	static inline const float kAttenuationWall = 0.2f;
+
+	bool isDead_ = false;
 
 };
