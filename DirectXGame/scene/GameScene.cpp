@@ -112,7 +112,15 @@ void GameScene::ChangePhase() {
 
 	case Phase::kPlay:
 
+		if (player_->IsDead()) {
 		
+		// 死亡演出フェーズに切り替え
+			phase_ = Phase::kDeath;
+
+			// 自キャラの座標を取得
+			const Vector3& deathParticlesPosition = player_->GetWorldPosition();
+		
+		}
 
 	break;
 

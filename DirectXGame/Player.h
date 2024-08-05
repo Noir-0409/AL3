@@ -102,6 +102,9 @@ public:
 	// 衝突応答
 	void OnCollision(const Enemy* enemy);	
 
+	// デスフラグのゲッター
+	bool IsDead() const { return isDead_; }
+
 private:
 	// ワールド変換データ
 	WorldTransform worldTransform_;
@@ -166,7 +169,5 @@ private:
 	// デスフラグ
 	bool isDead_ = false;
 
-	// デスフラグのゲッター
-	bool isDead() const { return isDead_; }
 
 };
