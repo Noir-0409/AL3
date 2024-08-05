@@ -24,6 +24,12 @@ enum class Scene {
 // 現在シーン
 Scene scene = Scene::kUnknown;
 
+void ChangeScene();
+
+void UpdateScene();
+
+void DrawScene();
+
 // Windowsアプリでのエントリーポイント(main関数)
 int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 	WinApp* win = nullptr;
@@ -77,6 +83,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 	gameScene = new GameScene();
 	gameScene->Initialize();
 
+	scene = Scene::kTitle;
 	titleScene = new TitleScene;
 	titleScene->Intialize();
 	titleScene->Update();
@@ -126,4 +133,84 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 	win->TerminateGameWindow();
 
 	return 0;
+}
+
+void ChangeScene() {
+
+	switch (scene) {
+
+	case Scene::kTitle:
+
+		if (titleScene->IsFinished()) {
+
+			scene = Scene::kGame;
+
+			delete titleScene;
+
+			titleScene = nullptr;
+
+			gameScene = new GameScene;
+
+			gameScene->Initialize();
+		}
+
+		break;
+
+	case Scene::kGame:
+
+		if (titleScene->IsFinished() == false) {
+
+			scene = Scene::kTitle;
+
+			delete gameScene;
+
+			gameScene = nullptr;
+
+			titleScene = new TitleScene;
+
+			titleScene->Intialize();
+		}
+
+		break;
+	}
+
+}
+
+void UpdateScene() {
+
+	switch (scene) {
+
+	case Scene::kTitle:
+
+		titleScene->Update();
+
+		break;
+
+	case Scene::kGame:
+
+		gameScene->Update();
+
+		break;
+	}
+
+}
+
+void DrawScene() {
+
+	switch (scene) {
+
+	case Scene::kTitle:
+
+		titleScene->Draw();
+
+		break;
+
+	case Scene::kGame:
+
+		gameScene->Draw();
+
+		break;
+	}
+
+
 }
