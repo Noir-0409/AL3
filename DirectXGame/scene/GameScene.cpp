@@ -157,6 +157,9 @@ Vector3 basePosition = {25.0f, 1.0f, 0.0f}; // 基準となる位置
 
 	player_->SetMapChipField(mapChipField_);
 
+	// ゲームプレイから開始
+	phase_ = Phase::kPlay;
+
 	// 敵の初期化
 //	enemy_->Initialize(enemyModel_, &viewProjection_, enemyPosition);
 
@@ -203,64 +206,114 @@ void GameScene::Update() {
 	}
 #endif
 
-	// カメラ処理
-	if (isDebugCameraActive_) {
-		// デバッグカメラの更新
-		debugCamera_->Update();
-		viewProjection_.matView = debugCamera_->GetViewProjection().matView;
-		viewProjection_.matProjection = debugCamera_->GetViewProjection().matProjection;
-		// ビュープロジェクション行列の転送
-		viewProjection_.TransferMatrix();
+	
 
-		
+	//enemy_->Update();
 
-	} else {
+	CameraController::Rect cameraArea_ = {12.0f, 100 - 12.0f, 6.0f, 6.0f};
+	cameraContoller_->SetMovableArea(cameraArea_);
 
-		// ビュープロジェクション行列の更新と転送
-		viewProjection_.UpdateMatrix();
-		
-		viewProjection_.matView = cameraContoller_->GetViewProjection().matView;
-		viewProjection_.matProjection = cameraContoller_->GetViewProjection().matProjection;
-		viewProjection_.TransferMatrix();
-
-	}
+	switch (phase_) {
+	
+		case Phase::kPlay:
 
 	// 自キャラの更新
 	player_->Update();
 
-	//enemy_->Update();
+	for (Enemy* enemy : enemies_) {
 
-	 for (Enemy* enemy : enemies_) {
-		enemy->Update();
+			enemy->Update();
+	
+	}
+
+	// カメラコントローラーの更新
+	cameraContoller_->Update();
+
+	// カメラ処理
+	if (isDebugCameraActive_) {
+			// デバッグカメラの更新
+			debugCamera_->Update();
+			viewProjection_.matView = debugCamera_->GetViewProjection().matView;
+			viewProjection_.matProjection = debugCamera_->GetViewProjection().matProjection;
+			// ビュープロジェクション行列の転送
+			viewProjection_.TransferMatrix();
+
+	} else {
+
+			// ビュープロジェクション行列の更新と転送
+			viewProjection_.UpdateMatrix();
+
+			viewProjection_.matView = cameraContoller_->GetViewProjection().matView;
+			viewProjection_.matProjection = cameraContoller_->GetViewProjection().matProjection;
+			viewProjection_.TransferMatrix();
 
 	}
 
+	
 	// 縦横ブロック更新
 	for (std::vector<WorldTransform*> worldTransformBlockTate : worldTransformBlocks_) {
-		for (WorldTransform* worldTransformBlockYoko : worldTransformBlockTate) {
-			if (!worldTransformBlockYoko)
-				continue;
+			for (WorldTransform* worldTransformBlockYoko : worldTransformBlockTate) {
+				if (!worldTransformBlockYoko)
+					continue;
 
-			// アフィン変換行列の作成
-			worldTransformBlockYoko->UpdateMatrix();
-		}
-	}
-
-	// デスパーティクルが存在するなら
-	if (deathParticles_) {
-	
-	deathParticles_->Update();
-	
+				// アフィン変換行列の作成
+				worldTransformBlockYoko->UpdateMatrix();
+			}
 	}
 
 	// 全ての当たり判定を行う
 	CheckAllCollision();
 
-	// カメラコントローラーの更新
-	cameraContoller_->Update();
+		break;
 
-	CameraController::Rect cameraArea_ = {12.0f, 100 - 12.0f, 6.0f, 6.0f};
-	cameraContoller_->SetMovableArea(cameraArea_);
+		case Phase::kDeath:
+
+			for (Enemy* enemy : enemies_) {
+
+			enemy->Update();
+
+		}
+
+			// カメラ処理
+		if (isDebugCameraActive_) {
+			// デバッグカメラの更新
+			debugCamera_->Update();
+			viewProjection_.matView = debugCamera_->GetViewProjection().matView;
+			viewProjection_.matProjection = debugCamera_->GetViewProjection().matProjection;
+			// ビュープロジェクション行列の転送
+			viewProjection_.TransferMatrix();
+
+		} else {
+
+			// ビュープロジェクション行列の更新と転送
+			viewProjection_.UpdateMatrix();
+
+			viewProjection_.matView = cameraContoller_->GetViewProjection().matView;
+			viewProjection_.matProjection = cameraContoller_->GetViewProjection().matProjection;
+			viewProjection_.TransferMatrix();
+		}
+
+		// デスパーティクルが存在するなら
+		if (deathParticles_) {
+
+			deathParticles_->Update();
+		}
+
+		// 縦横ブロック更新
+		for (std::vector<WorldTransform*> worldTransformBlockTate : worldTransformBlocks_) {
+			for (WorldTransform* worldTransformBlockYoko : worldTransformBlockTate) {
+				if (!worldTransformBlockYoko)
+					continue;
+
+				// アフィン変換行列の作成
+				worldTransformBlockYoko->UpdateMatrix();
+			}
+		}
+
+		break;
+
+	}
+
 }
 
 void GameScene::Draw() {
