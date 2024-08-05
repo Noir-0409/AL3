@@ -51,7 +51,9 @@ void Player::Update() {
 
 	ImGui::Begin("onGround");
 	ImGui::Checkbox("onGround_", &onGround_);
+	ImGui::Checkbox("isDead", &isDead_);
 	ImGui::End();
+
 
 }
 
