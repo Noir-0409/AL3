@@ -45,7 +45,7 @@ void ChangeScene() {
 
 			scene = Scene::kGame;
 
-		//	delete titleScene;
+			delete titleScene;
 
 			titleScene = nullptr;
 
@@ -62,7 +62,7 @@ void ChangeScene() {
 
 			scene = Scene::kTitile;
 
-			//delete gameScene;
+			delete gameScene;
 			gameScene = nullptr;
 
 			titleScene = new TitleScene;
