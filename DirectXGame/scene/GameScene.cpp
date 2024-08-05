@@ -130,7 +130,11 @@ void GameScene::ChangePhase() {
 
 	case Phase::kDeath:
 
+	if (deathParticles_ && deathParticles_->isFinished()) {
+		
+	finished_ = true;
 	
+	}
 
 		break;
 	}

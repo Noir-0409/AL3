@@ -86,10 +86,14 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 	scene = Scene::kTitile;
 	titleScene = new TitleScene;
 	titleScene->Initialize();
-	titleScene->Update();
-	titleScene->Draw();
+	/*titleScene->Update();
+	titleScene->Draw();*/
+	ChangeScene();
+	UpdateScene();
+	DrawScene();
 
 	delete titleScene;
+	
 
 	// メインループ
 	while (true) {
