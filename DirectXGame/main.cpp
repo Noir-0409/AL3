@@ -29,6 +29,8 @@ enum class Scene {
 // 現在シーン
 Scene scene = Scene::kUnknown;
 
+void ChangeScene();
+
 // Windowsアプリでのエントリーポイント(main関数)
 int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 	WinApp* win = nullptr;
@@ -77,6 +79,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 	gameScene = new GameScene();
 	gameScene->Initialize();
 
+	scene = Scene::kTitile;
 	titleScene = new TitleScene;
 	titleScene->Initialize();
 	titleScene->Update();
@@ -126,4 +129,43 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 	win->TerminateGameWindow();
 
 	return 0;
+}
+
+void ChangeScene() {
+
+	switch (scene) {
+
+	case Scene::kTitile:
+
+		if (titleScene->IsFinished()) {
+
+			scene = Scene::kGame;
+
+			delete titleScene;
+
+			titleScene = nullptr;
+
+			gameScene = new GameScene;
+
+			gameScene->Initialize();
+		}
+
+		break;
+
+	case Scene::kGame:
+
+		if (gameScene->isFinished()) {
+		
+		  delete gameScene;
+			gameScene = nullptr;
+
+			titleScene = new TitleScene;
+			titleScene->Initialize();
+		
+		}
+
+		break;
+	}
+
+
 }
