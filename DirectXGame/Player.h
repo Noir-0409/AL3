@@ -163,4 +163,10 @@ private:
 	// 着地時の速度減衰率
 	static inline const float kAttenuationWall = 0.2f;
 
+	// デスフラグ
+	bool isDead_ = false;
+
+	// デスフラグのゲッター
+	bool isDead() const { return isDead_; }
+
 };

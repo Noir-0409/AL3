@@ -106,6 +106,22 @@ void GameScene::CheckAllCollision() {
 
 }
 
+void GameScene::ChangePhase() {
+
+	switch ( phase_ ) {
+
+	case Phase::kPlay:
+
+	break;
+
+	case Phase::kDeath:
+
+	break;
+
+	}
+
+}
+
 void GameScene::Initialize() {
 
 	dxCommon_ = DirectXCommon::GetInstance();
