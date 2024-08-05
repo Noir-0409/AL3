@@ -112,9 +112,13 @@ void GameScene::ChangePhase() {
 
 	case Phase::kPlay:
 
+		
+
 	break;
 
 	case Phase::kDeath:
+
+
 
 	break;
 
