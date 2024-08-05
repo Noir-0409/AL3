@@ -21,6 +21,17 @@
 /// </summary>
 class GameScene {
 
+	// ゲームのフェーズ
+	enum class Phase {
+
+		kPlay,
+		kDeath,
+
+	};
+
+	// ゲームの現在フェーズ
+	Phase phase_;
+
 public: // メンバ関数
 	/// <summary>
 	/// コンストクラタ
@@ -54,6 +65,8 @@ public: // メンバ関数
 
 	// 全ての当たり判定を行う
 	void CheckAllCollision();
+
+	void ChangePhase();
 
 private: // メンバ変数
 	DirectXCommon* dxCommon_ = nullptr;

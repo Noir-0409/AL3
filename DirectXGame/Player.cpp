@@ -678,6 +678,8 @@ void Player::OnCollision(const Enemy* enemy) {
 	(void)enemy;
 
 	// ジャンプ開始
-	velocity_.y += 0.1f;
+	//velocity_.y += 0.1f;
+
+	isDead_ = true;
 
 }
