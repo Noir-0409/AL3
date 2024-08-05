@@ -385,6 +385,7 @@ void GameScene::Draw() {
 		break;
 	}
 
+
 		// 敵の描画
 		//enemy_->Draw();
 
