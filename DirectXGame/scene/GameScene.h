@@ -68,7 +68,11 @@ public: // メンバ関数
 
 	void ChangePhase();
 
-private: // メンバ変数
+bool isFinished() const { return finished_; }
+
+private:
+	
+// メンバ変数
 	DirectXCommon* dxCommon_ = nullptr;
 	Input* input_ = nullptr;
 	Audio* audio_ = nullptr;
@@ -109,5 +113,7 @@ private: // メンバ変数
 	DebugCamera* debugCamera_ = nullptr;
 
 	DeathParticle* deathParticles_ = nullptr;
+
+	bool finished_ = false;
 
 };
