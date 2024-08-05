@@ -6,17 +6,120 @@
 #include "PrimitiveDrawer.h"
 #include "TextureManager.h"
 #include "WinApp.h"
+#include "TitlScene.h"
+
+// 汎用機能
+Input* input = nullptr;
+Audio* audio = nullptr;
+AxisIndicator* axisIndicator = nullptr;
+PrimitiveDrawer* primitiveDrawer = nullptr;
+GameScene* gameScene = nullptr;
+TitleScene* titleScene = nullptr;
+
+// シーン
+enum class Scene {
+
+	lUnknown = 0,
+
+	kTitle,
+	kGame
+
+};
+
+// 現在シーン
+Scene scene = Scene::lUnknown;
+
+void ChangeScene();
+
+void UpdateScene();
+
+void DrawScene();
+
+void ChangeScene() {
+
+	switch (scene) {
+
+		case Scene::kTitle:
+
+			if (titleScene->IsFinished()) {
+		    
+				scene = Scene::kGame;
+
+				delete titleScene;
+
+				titleScene = nullptr;
+
+				gameScene = new GameScene;
+
+				gameScene->Initialize();
+			
+			}
+
+			break;
+
+			case Scene::kGame:
+
+				if (titleScene->IsFinished() == false) {
+		    
+				scene = Scene::kTitle;
+
+				delete gameScene;
+
+				gameScene = nullptr;
+
+				titleScene = new TitleScene;
+
+				titleScene->Intialize();
+				
+				}
+
+			break;
+
+	}
+
+}
+
+void UpdateScene() {
+
+	switch (scene) {
+
+	case Scene::kTitle:
+
+		    titleScene->Update();
+
+		    break;
+
+	case Scene::kGame:
+
+		    gameScene->Update();
+
+		    break;
+	}
+}
+
+void DrawScene() {
+
+	switch (scene) {
+
+	case Scene::kTitle:
+
+		    titleScene->Draw();
+
+		    break;
+
+	case Scene::kGame:
+
+		    gameScene->Draw();
+
+		    break;
+	}
+
+}
 
 // Windowsアプリでのエントリーポイント(main関数)
 int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 	WinApp* win = nullptr;
 	DirectXCommon* dxCommon = nullptr;
-	// 汎用機能
-	Input* input = nullptr;
-	Audio* audio = nullptr;
-	AxisIndicator* axisIndicator = nullptr;
-	PrimitiveDrawer* primitiveDrawer = nullptr;
-	GameScene* gameScene = nullptr;
 
 	// ゲームウィンドウの作成
 	win = WinApp::GetInstance();
@@ -61,6 +164,22 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 	gameScene = new GameScene();
 	gameScene->Initialize();
 
+	scene = Scene::kTitle;
+	titleScene = new TitleScene;
+	titleScene->Intialize();
+	/*titleScene->Update();
+	titleScene->Draw();*/
+
+	ChangeScene();
+
+	UpdateScene();
+
+	DrawScene();
+
+	delete titleScene;
+
+	delete gameScene;
+
 	// メインループ
 	while (true) {
 		// メッセージ処理
@@ -104,3 +223,5 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
 	return 0;
 }
+
+
