@@ -1,6 +1,9 @@
 #include <ViewProjection.h>
 #include <Model.h>
 #include "MathUtilityForText.h"
+#include "Vector4.h"
+#include <DeathObject.h>
+#include <algorithm>
 
 class DeathParticle {
 
@@ -44,5 +47,11 @@ public:
 
 	// 経過時間カウント
 	float counter_ = 0.0f;
+
+	// 色変更オブジェクト
+	DeathObject objectColor_;
+
+	// 色の数値
+	Vector4 color_;
 
 };

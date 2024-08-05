@@ -15,6 +15,10 @@ void DeathParticle::Initialize(
 		worldTransform.translation_ = position;
 	}
 
+	objectColor_.Initialize();
+
+	color_ = {1, 1, 1, 1};
+
 }
 
 void DeathParticle::Update() {
@@ -63,6 +67,15 @@ void DeathParticle::Update() {
 		isFinished_ = true;
 	
 	}
+
+	// counter_が0のときに、アルファ値が1.0,存続時間ピッタリのときに0.0にする
+	color_.w = std::clamp(1.0f - (counter_ / kDuration), 0.0f, 1.0f);
+
+	// 色変更オブジェクトに色の数値を設定
+	objectColor_.SetColor(color_);
+
+	// 色変更オブジェクトをVRAMに転送
+	objectColor_.TransferMatrix();
 
 }
 
