@@ -25,7 +25,6 @@ public:
 
 	bool isFinished() const { return isFinished_; }
 
-
 	private:
 
 	Model* particleModel_ = nullptr;           // パーティクルのモデル

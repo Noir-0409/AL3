@@ -1,4 +1,5 @@
 #include "DeathParticle.h"
+#include <imgui.h>
 
 void DeathParticle::Initialize(
     Model* model, ViewProjection* viewProjection, const Vector3& position) {
@@ -22,6 +23,10 @@ void DeathParticle::Initialize(
 }
 
 void DeathParticle::Update() {
+
+	ImGui::Begin("DeathParticle");
+	ImGui::Checkbox("death", &isFinished_);
+	ImGui::End();
 
 		// 終了なら何もしない
 	if (isFinished_) {

@@ -35,6 +35,80 @@ void UpdateScene();
 
 void DrawScene();
 
+void ChangeScene() {
+
+	switch (scene) {
+
+	case Scene::kTitile:
+
+		if (titleScene->IsFinished()) {
+
+			scene = Scene::kGame;
+
+		//	delete titleScene;
+
+			titleScene = nullptr;
+
+			gameScene = new GameScene;
+
+			gameScene->Initialize();
+		}
+
+		break;
+
+	case Scene::kGame:
+
+		if (gameScene->isFinished()) {
+
+			scene = Scene::kTitile;
+
+			//delete gameScene;
+			gameScene = nullptr;
+
+			titleScene = new TitleScene;
+			titleScene->Initialize();
+		}
+
+		break;
+	}
+}
+
+void UpdateScene() {
+
+	switch (scene) {
+
+	case Scene::kTitile:
+
+		titleScene->Update();
+
+		break;
+
+	case Scene::kGame:
+
+		gameScene->Update();
+
+		break;
+	}
+}
+
+void DrawScene() {
+
+	switch (scene) {
+
+	case Scene::kTitile:
+
+		titleScene->Draw();
+
+		break;
+
+	case Scene::kGame:
+
+		gameScene->Draw();
+
+		break;
+	}
+}
+
 // Windowsアプリでのエントリーポイント(main関数)
 int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 	WinApp* win = nullptr;
@@ -88,13 +162,14 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 	titleScene->Initialize();
 	/*titleScene->Update();
 	titleScene->Draw();*/
+
 	ChangeScene();
 	UpdateScene();
 	DrawScene();
 
 	delete titleScene;
+	delete gameScene;
 	
-
 	// メインループ
 	while (true) {
 		// メッセージ処理
@@ -137,81 +212,5 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 	win->TerminateGameWindow();
 
 	return 0;
-}
-
-void ChangeScene() {
-
-	switch (scene) {
-
-	case Scene::kTitile:
-
-		if (titleScene->IsFinished()) {
-
-			scene = Scene::kGame;
-
-			delete titleScene;
-
-			titleScene = nullptr;
-
-			gameScene = new GameScene;
-
-			gameScene->Initialize();
-		}
-
-		break;
-
-	case Scene::kGame:
-
-		if (gameScene->isFinished()) {
-		
-		  delete gameScene;
-			gameScene = nullptr;
-
-			titleScene = new TitleScene;
-			titleScene->Initialize();
-		
-		}
-
-		break;
-	}
-
-
-}
-
-void UpdateScene() {
-
-	switch (scene) {
-
-	case Scene::kTitile:
-
-		titleScene->Update();
-
-		break;
-
-	case Scene::kGame:
-
-		gameScene->Update();
-
-		break;
-	}
-
-}
-
-void DrawScene() {
-
-	switch (scene) {
-
-	case Scene::kTitile:
-
-		titleScene->Draw();
-
-		break;
-
-	case Scene::kGame:
-
-		gameScene->Draw();
-
-		break;
-	}
 
 }
