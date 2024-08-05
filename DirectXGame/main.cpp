@@ -8,16 +8,31 @@
 #include "WinApp.h"
 #include "TitleScene.h"
 
+// 汎用機能
+Input* input = nullptr;
+Audio* audio = nullptr;
+AxisIndicator* axisIndicator = nullptr;
+PrimitiveDrawer* primitiveDrawer = nullptr;
+GameScene* gameScene = nullptr;
+TitleScene* titleScene = nullptr;
+
+// シーン
+enum class Scene {
+
+	kUnknown = 0,
+
+	kTitile,
+	kGame
+
+};
+
+// 現在シーン
+Scene scene = Scene::kUnknown;
+
 // Windowsアプリでのエントリーポイント(main関数)
 int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 	WinApp* win = nullptr;
-	DirectXCommon* dxCommon = nullptr;
-	// 汎用機能
-	Input* input = nullptr;
-	Audio* audio = nullptr;
-	AxisIndicator* axisIndicator = nullptr;
-	PrimitiveDrawer* primitiveDrawer = nullptr;
-	GameScene* gameScene = nullptr;
+	DirectXCommon* dxCommon = nullptr;;
 
 	// ゲームウィンドウの作成
 	win = WinApp::GetInstance();
@@ -61,8 +76,6 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 	// ゲームシーンの初期化
 	gameScene = new GameScene();
 	gameScene->Initialize();
-
-	TitleScene* titleScene = nullptr;
 
 	titleScene = new TitleScene;
 	titleScene->Initialize();
