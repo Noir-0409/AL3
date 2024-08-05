@@ -6,6 +6,7 @@
 #include "PrimitiveDrawer.h"
 #include "TextureManager.h"
 #include "WinApp.h"
+#include "TitleScene.h"
 
 // Windowsアプリでのエントリーポイント(main関数)
 int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
@@ -60,6 +61,15 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 	// ゲームシーンの初期化
 	gameScene = new GameScene();
 	gameScene->Initialize();
+
+	TitleScene* titleScene = nullptr;
+
+	titleScene = new TitleScene;
+	titleScene->Initialize();
+	titleScene->Update();
+	titleScene->Draw();
+
+	delete titleScene;
 
 	// メインループ
 	while (true) {
