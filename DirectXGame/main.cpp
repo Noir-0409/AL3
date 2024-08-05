@@ -31,6 +31,10 @@ Scene scene = Scene::kUnknown;
 
 void ChangeScene();
 
+void UpdateScene();
+
+void DrawScene();
+
 // Windowsアプリでのエントリーポイント(main関数)
 int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 	WinApp* win = nullptr;
@@ -167,5 +171,43 @@ void ChangeScene() {
 		break;
 	}
 
+
+}
+
+void UpdateScene() {
+
+	switch (scene) {
+
+	case Scene::kTitile:
+
+		titleScene->Update();
+
+		break;
+
+	case Scene::kGame:
+
+		gameScene->Update();
+
+		break;
+	}
+
+}
+
+void DrawScene() {
+
+	switch (scene) {
+
+	case Scene::kTitile:
+
+		titleScene->Draw();
+
+		break;
+
+	case Scene::kGame:
+
+		gameScene->Draw();
+
+		break;
+	}
 
 }
