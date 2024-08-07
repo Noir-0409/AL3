@@ -51,6 +51,9 @@ void Player::Update() {
 
 	ImGui::Begin("onGround");
 	ImGui::Checkbox("onGround_", &onGround_);
+	ImGui::Checkbox("hitwall", &collisionMapInfo.hitwall);
+	ImGui::Checkbox("landing", &collisionMapInfo.landing);
+	ImGui::Checkbox("ceiling", &collisionMapInfo.ceiling);
 	ImGui::End();
 
 }
@@ -209,11 +212,7 @@ void Player::CheckMapCollision(CollisionMapInfo& info) {
 	CheckMapCollisionLeft(info);
 	CheckMapCollisionRight(info);
 
-	 ImGui::Begin("hit");
-	 ImGui::Checkbox("hitwall", &info.hitwall);
-	 ImGui::Checkbox("landing", &info.landing);
-	 ImGui::Checkbox("ceiling", &info.ceiling);
-	 ImGui::End();
+
 
 }
 

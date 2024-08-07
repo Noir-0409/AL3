@@ -18,9 +18,9 @@ GameScene::~GameScene() {
 
 	if (deathParticles_) {
 
-		delete particleModel_;
+		delete particleModel_; 
 	
-	}
+	} 
 
 	for (std::vector<WorldTransform*>& worldTransformBlockLine : worldTransformBlocks_) {
 		for (WorldTransform* worldTransformBlock : worldTransformBlockLine) {
@@ -130,7 +130,12 @@ void GameScene::ChangePhase() {
 
 	case Phase::kDeath:
 
+		if (deathParticles_ && deathParticles_->isFinished()) {
 		
+		
+			finished_ = true;
+		
+		}
 
 		break;
 	}
