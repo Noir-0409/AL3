@@ -105,17 +105,16 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
 		// titleScene->Update();
 
-		// 軸表示の更新
-		axisIndicator->Update();
-
 		ChangeScene();
 
 		UpdateScene();
 
-		
+		// 軸表示の更新
+		axisIndicator->Update();
 
 		// ImGui受付終了
 		imguiManager->End();
+
 
 		// 描画開始
 		dxCommon->PreDraw();
@@ -134,7 +133,6 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 		// 描画終了
 		dxCommon->PostDraw();
 	}
-
 
 	delete titleScene;
 	delete gameScene;
@@ -160,36 +158,38 @@ void ChangeScene() {
 		if (titleScene->IsFinished()) {
 
 			scene = Scene::kGame;
-
+	
 			delete titleScene;
-
+			
 			titleScene = nullptr;
-
+			
 			gameScene = new GameScene;
-
+			
 			gameScene->Initialize();
+		
 		}
-
+		
 		break;
-
+	
 	case Scene::kGame:
-
-		if (gameScene->IsFinished() == false) {
-
+	
+		if (gameScene->IsFinished()) {
+		
 			scene = Scene::kTitle;
-
+			
 			delete gameScene;
-
+			
 			gameScene = nullptr;
-
+			
 			titleScene = new TitleScene;
-
-			titleScene->Intialize();
+			
+		titleScene->Intialize();
+		
 		}
-
+		
 		break;
+	
 	}
-
 }
 
 void UpdateScene() {
