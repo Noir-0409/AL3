@@ -23,16 +23,6 @@ public:
 
 	};
 
-	// マップとの当たり判定情報
-	struct CollisionMapInfo {
-
-		bool ceiling = false;
-		bool landing = false;
-		bool hitwall = false;
-		Vector3 move;
-
-	};
-
 	// 角
 	enum Corner {
 
@@ -42,7 +32,17 @@ public:
 		kLeftTop,
 
 		kNumCorner // 要素数
-		
+
+	};
+
+	// マップとの当たり判定情報
+	struct CollisionMapInfo {
+
+		bool ceiling = false;
+		bool landing = false;
+		bool hitwall = false;
+		Vector3 move;
+
 	};
 
 	/// <summary>
@@ -69,12 +69,11 @@ public:
 
 	void InpuMove();
 
-
 	void CheckMapCollision(CollisionMapInfo& info);
 
 	void CheckMapCollisionUp(CollisionMapInfo& info);
 
-//	void CheckMapCollisionDown(CollisionMapInfo& info);
+	void CheckMapCollisionDown(CollisionMapInfo& info);
 
 //	void CheckMapCollisionLeft(CollisionMapInfo& info);
 

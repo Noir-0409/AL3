@@ -308,25 +308,61 @@ void Player::CheckMapCollisionUp(CollisionMapInfo& info) {
 
 }
 
-//void Player::CheckMapCollisionDown(CollisionMapInfo& info) {
-//
-//// 下降あり？
-//	if (info.move.y >= 0) {
-//	
-//		return;
-//	
-//	}
-//
-//	// 移動後の4つの角の座標
-//	std::array<Vector3, kNumCorner> positionsNew;
-//
-//	for (uint32_t i = 0; i < positionsNew.size(); ++i) {
-//
-//		positionsNew[i] =
-//		    CornerPosition(worldTransform_.translation_ + info.move, static_cast<Corner>(i));
-//	}
-//
-//}
+void Player::CheckMapCollisionDown(CollisionMapInfo& info) {
+
+// 下降あり？
+	if (info.move.y >= 0) {
+	
+		return;
+	
+	}
+
+	// 移動後の4つの角の座標
+	std::array<Vector3, kNumCorner> positionsNew;
+
+	for (uint32_t i = 0; i < positionsNew.size(); ++i) {
+
+		positionsNew[i] =
+		    CornerPosition(worldTransform_.translation_ + info.move, static_cast<Corner>(i));
+	}
+
+	MapChipType mapChipType;
+	MapChipType mapChipTypeNext;
+
+	bool hit = false;
+
+	// 真下の当たり判定
+	// 左下
+	MapChipField::IndexSet indexSet;
+
+	indexSet = mapChipField_->GetMapChipIndexSetByPosition(positionsNew[kLeftBottom]);
+
+	mapChipType = mapChipField_->GetMapChipTypeByIndex(indexSet.xIndex, indexSet.yIndex);
+
+		mapChipTypeNext = mapChipField_->GetMapChipTypeByIndex(indexSet.xIndex, indexSet.yIndex - 1);
+	if (mapChipType == MapChipType::kBlock && mapChipTypeNext != MapChipType::kBlock) {
+		hit = true;
+	}
+
+	// ブロックにヒット？
+	if (hit) {
+		// 現在座標が壁の外か判定
+		MapChipField::IndexSet indexSetNow;
+		indexSetNow = mapChipField_->GetMapChipIndexSetByPosition(
+		    worldTransform_.translation_ + Vector3(0, -kHeight / 2.0f, 0));
+		if (indexSetNow.yIndex != indexSet.yIndex) {
+			// めり込みを排除する方向に移動量を設定する
+			indexSet = mapChipField_->GetMapChipIndexSetByPosition(
+			    worldTransform_.translation_ + info.move + Vector3(0, -kHeight / 2.0f, 0));
+			MapChipField::Rect rect =
+			    mapChipField_->GetRectByIndex(indexSet.xIndex, indexSet.yIndex);
+			info.move.y = std::min(
+			    0.0f, rect.top - worldTransform_.translation_.y + (kHeight / 2.0f + kBlank));
+			info.landing = true;
+		}
+	}
+
+}
 
 Vector3 Player::CornerPosition(const Vector3& center, Corner corner) { 
 	
