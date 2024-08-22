@@ -50,9 +50,9 @@ void Player::Update() {
 	// 行列計算
 	worldTransform_.UpdateMatrix();
 
-	ImGui::Begin("onGround");
-	ImGui::Checkbox("onGround_", &onGround_);
-	ImGui::End();
+	//ImGui::Begin("onGround");
+	//ImGui::Checkbox("onGround_", &onGround_);
+	//ImGui::End();
 
 }
 
@@ -70,11 +70,11 @@ void Player::CheckMapCollision(CollisionMapInfo& info) {
 	CheckMapCollisionLeft(info);
 	CheckMapCollisionRight(info);
 
-	 ImGui::Begin("hit");
+	 /*ImGui::Begin("hit");
 	 ImGui::Checkbox("hitwall", &info.hitwall);
 	 ImGui::Checkbox("landing", &info.landing);
 	 ImGui::Checkbox("ceiling", &info.ceiling);
-	 ImGui::End();
+	 ImGui::End();*/
 
 }
 

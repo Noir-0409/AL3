@@ -106,7 +106,7 @@ private:
 	static inline const float kAttenuation = 0.05f;
 
 	// 最大速度
-	static inline const float kLimitRunSpeed = 0.1f;
+	static inline const float kLimitRunSpeed = 0.07f;
 
 	LRDirection lrDirection_ = LRDirection::kRight;
 
@@ -128,7 +128,7 @@ private:
 	static inline const float kLimitFallSpeed = 0.5f; 
 
 	// ジャンプ初速
-	static inline const float kJumpAcceleration = 20.0f;
+	static inline const float kJumpAcceleration = 18.0f;
 
 	Vector3 velocity_ = {};
 
