@@ -11,8 +11,9 @@
 #include "MapChipField.h"
 #include "Player.h"
 #include "CameraController.h"
-
+#include "SkyDome.h"
 #include <vector>
+
 
 /// <summary>
 /// ゲームシーン
@@ -74,6 +75,12 @@ private: // メンバ変数
 
 	// 自キャラ
 	Player* player_ = nullptr;
+
+	// 天球
+	Skydome* skydome_ = nullptr;
+
+	// 3Dモデル
+	Model* modelSkydome_ = nullptr;
 
 	// 縦横ブロック配列
 	std::vector<std::vector<WorldTransform*>> worldTransformBlocks_;

@@ -26,6 +26,8 @@ GameScene::~GameScene() {
 	// マップチップフィールドの解放
 	delete mapChipField_;
 
+	delete modelSkydome_;
+
 }
 
 void GameScene::GenerateBlocks() {
@@ -82,12 +84,17 @@ void GameScene::Initialize() {
 	// 自キャラの生成
 	player_ = new Player();
 
+	// 天球の生成
+	skydome_ = new Skydome();
+
 	// 座標をマップチップ番号で固定
 	Vector3 playerPosition = mapChipField_->GetMapChipPositionByIndex(2, 18);
 
 	// 自キャラの初期化
 	//player_->Initialize(model_, playerHandle_, &viewProjection_, playerPosition);
 	player_->Initialize(model_, &viewProjection_, playerPosition);
+
+	skydome_->Initialize();
 
 	player_->SetMapChipField(mapChipField_);
 
@@ -152,6 +159,9 @@ void GameScene::Update() {
 	// 自キャラの更新
 	player_->Update();
 
+	// 天球の更新
+	skydome_->Update();
+
 	// 縦横ブロック更新
 	for (std::vector<WorldTransform*> worldTransformBlockTate : worldTransformBlocks_) {
 		for (WorldTransform* worldTransformBlockYoko : worldTransformBlockTate) {
@@ -200,6 +210,9 @@ void GameScene::Draw() {
 	//	model_->Draw(worldTransform_, viewProjection_, textureHandle_);
 	// 自キャラの描画
 		player_->Draw();
+
+	// 天球の描画
+	    skydome_->Draw();
 
 	// 縦横ブロック描画
 	for (std::vector<WorldTransform*> worldTransformBlockTate : worldTransformBlocks_) {
