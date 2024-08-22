@@ -87,6 +87,8 @@ void GameScene::Initialize() {
 	// 天球の生成
 	skydome_ = new Skydome();
 
+	modelSkydome_ = Model::CreateFromOBJ("skydome", true);
+
 	// 座標をマップチップ番号で固定
 	Vector3 playerPosition = mapChipField_->GetMapChipPositionByIndex(2, 18);
 
@@ -94,7 +96,7 @@ void GameScene::Initialize() {
 	//player_->Initialize(model_, playerHandle_, &viewProjection_, playerPosition);
 	player_->Initialize(model_, &viewProjection_, playerPosition);
 
-	skydome_->Initialize();
+	skydome_->Initialize(modelSkydome_,&viewProjection_);
 
 	player_->SetMapChipField(mapChipField_);
 
