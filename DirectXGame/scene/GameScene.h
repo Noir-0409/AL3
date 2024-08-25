@@ -13,6 +13,7 @@
 #include "CameraController.h"
 #include "SkyDome.h"
 #include <vector>
+#include "Goal.h"
 
 
 /// <summary>
@@ -65,6 +66,7 @@ private: // メンバ変数
 	// 3Dモデル
 	Model* model_ = nullptr;
 	Model* modelBlock_ = nullptr;
+	Model* goalModel_ = nullptr;
 	// ワールドトランスフォーム
 	WorldTransform worldTransform_;
 	
@@ -75,6 +77,9 @@ private: // メンバ変数
 
 	// 自キャラ
 	Player* player_ = nullptr;
+
+	// 敵
+	Goal* goal_ = nullptr;
 
 	// 天球
 	Skydome* skydome_ = nullptr;

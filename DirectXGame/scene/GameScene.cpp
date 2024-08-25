@@ -28,6 +28,8 @@ GameScene::~GameScene() {
 
 	delete modelSkydome_;
 
+	delete goalModel_;
+
 }
 
 void GameScene::GenerateBlocks() {
@@ -71,6 +73,9 @@ void GameScene::Initialize() {
 	// ファイル名を指定してテクスチャを読み込む
 	 modelBlock_ = Model::CreateFromOBJ("block", true);
 	model_ = Model::CreateFromOBJ("player",true);
+	 modelSkydome_ = Model::CreateFromOBJ("skydome", true);
+	goalModel_ = Model::CreateFromOBJ("enemy", true);
+
 	//textureHandle_ = TextureManager::Load("./Resources/block/block.png");
 //	playerHandle_ = TextureManager::Load("./Resources./2.png");
 
@@ -84,13 +89,18 @@ void GameScene::Initialize() {
 	// 自キャラの生成
 	player_ = new Player();
 
+	// ゴールの生成
+	goal_ = new Goal();
+
 	// 天球の生成
 	skydome_ = new Skydome();
 
-	modelSkydome_ = Model::CreateFromOBJ("skydome", true);
+	
 
 	// 座標をマップチップ番号で固定
 	Vector3 playerPosition = mapChipField_->GetMapChipPositionByIndex(2, 18);
+
+	Vector3 goalPosition = mapChipField_->GetMapChipPositionByIndex(3, 18);
 
 	// 自キャラの初期化
 	//player_->Initialize(model_, playerHandle_, &viewProjection_, playerPosition);
@@ -99,6 +109,11 @@ void GameScene::Initialize() {
 	skydome_->Initialize(modelSkydome_,&viewProjection_);
 
 	player_->SetMapChipField(mapChipField_);
+
+	// 敵の初期化
+	goal_->Initialize(goalModel_, &viewProjection_, goalPosition);
+
+	goal_->SetMapChipField(mapChipField_);
 
 	// カメラコントローラーの初期化
 	// 生成
@@ -164,6 +179,8 @@ void GameScene::Update() {
 	// 天球の更新
 	skydome_->Update();
 
+	goal_->Update();
+
 	// 縦横ブロック更新
 	for (std::vector<WorldTransform*> worldTransformBlockTate : worldTransformBlocks_) {
 		for (WorldTransform* worldTransformBlockYoko : worldTransformBlockTate) {
@@ -215,6 +232,9 @@ void GameScene::Draw() {
 
 	// 天球の描画
 	    skydome_->Draw();
+
+		// ゴールの描画
+	    goal_->Draw();
 
 	// 縦横ブロック描画
 	for (std::vector<WorldTransform*> worldTransformBlockTate : worldTransformBlocks_) {
