@@ -74,7 +74,7 @@ void GameScene::Initialize() {
 	 modelBlock_ = Model::CreateFromOBJ("block", true);
 	model_ = Model::CreateFromOBJ("player",true);
 	 modelSkydome_ = Model::CreateFromOBJ("skydome", true);
-	goalModel_ = Model::CreateFromOBJ("enemy", true);
+	goalModel_ = Model::CreateFromOBJ("goal", true);
 
 	//textureHandle_ = TextureManager::Load("./Resources/block/block.png");
 //	playerHandle_ = TextureManager::Load("./Resources./2.png");
@@ -100,7 +100,7 @@ void GameScene::Initialize() {
 	// 座標をマップチップ番号で固定
 	Vector3 playerPosition = mapChipField_->GetMapChipPositionByIndex(2, 18);
 
-	Vector3 goalPosition = mapChipField_->GetMapChipPositionByIndex(3, 18);
+	Vector3 goalPosition = mapChipField_->GetMapChipPositionByIndex(94, 3);
 
 	// 自キャラの初期化
 	//player_->Initialize(model_, playerHandle_, &viewProjection_, playerPosition);
