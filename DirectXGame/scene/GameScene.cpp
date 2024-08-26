@@ -64,6 +64,20 @@ void GameScene::GenerateBlocks() {
 	}
 }
 
+void GameScene::CheckAllCollision() {
+
+
+	//// 判定対象1と2の差
+	//AABB aabb1, aabb2;
+
+	//// 自キャラの座標
+	//aabb1 = player_->GetAABB();
+
+	//// 自キャラとゴールの当たり判定
+	//
+
+}
+
 void GameScene::Initialize() {
 
 	dxCommon_ = DirectXCommon::GetInstance();
@@ -137,6 +151,8 @@ void GameScene::Initialize() {
 	debugCamera_ = new DebugCamera(1280, 720);
 
 	GenerateBlocks();
+
+	CheckAllCollision();
 
 }
 
