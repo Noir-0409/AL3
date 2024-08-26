@@ -694,3 +694,11 @@ AABB Player::GetAABB() {
 	return aabb;
 	
 	}
+
+void Player::OnCollision(const Goal* goal) {
+
+	(void)goal;
+
+	velocity_ += Vector3(0, kJumpAcceleration/60.f, 0);
+
+}

@@ -62,3 +62,9 @@ AABB Goal::GetAABB() {
 	return aabb;
 
 }
+
+void Goal::OnCollision(const Player* player) {
+
+	(void)player;
+
+}

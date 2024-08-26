@@ -67,14 +67,23 @@ void GameScene::GenerateBlocks() {
 void GameScene::CheckAllCollision() {
 
 
-	//// 判定対象1と2の差
-	//AABB aabb1, aabb2;
+	// 判定対象1と2の差
+	AABB aabb1, aabb2;
 
-	//// 自キャラの座標
-	//aabb1 = player_->GetAABB();
+	// 自キャラの座標
+	aabb1 = player_->GetAABB();
 
-	//// 自キャラとゴールの当たり判定
-	//
+	// 自キャラとゴールの当たり判定
+	aabb2 = goal_->GetAABB();
+
+	// AABB同士の交差判定
+	if (AABB::IsCollision(aabb1, aabb2)) {
+	
+	player_->OnCollision(goal_);
+
+	goal_->OnCollision(player_);
+	
+	}
 
 }
 
@@ -152,8 +161,6 @@ void GameScene::Initialize() {
 
 	GenerateBlocks();
 
-	CheckAllCollision();
-
 }
 
 void GameScene::Update() {
@@ -213,6 +220,9 @@ void GameScene::Update() {
 
 	CameraController::Rect cameraArea_ = {12.0f, 100 - 12.0f, 6.0f, 6.0f};
 	cameraContoller_->SetMovableArea(cameraArea_);
+
+	CheckAllCollision();
+
 }
 
 void GameScene::Draw() {

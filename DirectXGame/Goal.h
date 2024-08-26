@@ -3,6 +3,8 @@
 #include "MapChipField.h"
 #include "AB.h"
 
+class Player;
+
 class Goal {
 
 public:
@@ -23,6 +25,7 @@ Vector3 GetWorldPosition();
 // AABBを取得
 AABB GetAABB();
 
+void OnCollision(const Player* player);
 
 private:
 
