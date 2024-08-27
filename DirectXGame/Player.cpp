@@ -54,6 +54,10 @@ void Player::Update() {
 	//ImGui::Checkbox("onGround_", &onGround_);
 	//ImGui::End();
 
+	ImGui::Begin("IsGoal");
+	ImGui::Checkbox("IsGoal", &isGoal_);
+	ImGui::End();
+
 }
 
 void Player::Draw() {
@@ -69,12 +73,6 @@ void Player::CheckMapCollision(CollisionMapInfo& info) {
 	CheckMapCollisionDown(info);
 	CheckMapCollisionLeft(info);
 	CheckMapCollisionRight(info);
-
-	 /*ImGui::Begin("hit");
-	 ImGui::Checkbox("hitwall", &info.hitwall);
-	 ImGui::Checkbox("landing", &info.landing);
-	 ImGui::Checkbox("ceiling", &info.ceiling);
-	 ImGui::End();*/
 
 }
 
@@ -700,5 +698,7 @@ void Player::OnCollision(const Goal* goal) {
 	(void)goal;
 
 	//velocity_ += Vector3(0, kJumpAcceleration/60.f, 0);
+
+	isGoal_ = true;
 
 }

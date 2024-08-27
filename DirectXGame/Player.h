@@ -100,6 +100,8 @@ public:
 
 	void OnCollision(const Goal* goal);
 
+	bool IsGoal() const { return isGoal_; }
+
 private:
 	// ワールド変換データ
 	WorldTransform worldTransform_;
@@ -160,5 +162,8 @@ private:
 
 	// 着地時の速度減衰率
 	static inline const float kAttenuationWall = 0.9f;
+
+	bool isGoal_ = false;
+
 
 };

@@ -87,6 +87,30 @@ void GameScene::CheckAllCollision() {
 
 }
 
+void GameScene::ChangePhase() {
+
+	switch (phase_) {
+
+		case Phase::kPlay:
+
+			if (player_->IsGoal()) {
+	
+			phase_ = Phase::kTitle;
+			
+			}
+
+		break;
+
+		case Phase::kTitle:
+
+
+
+		break;
+
+}
+
+}
+
 void GameScene::Initialize() {
 
 	dxCommon_ = DirectXCommon::GetInstance();
@@ -278,6 +302,8 @@ void GameScene::Update() {
 
 	}
 
+	ChangePhase();
+
 }
 
 void GameScene::Draw() {
@@ -308,8 +334,26 @@ void GameScene::Draw() {
 	/// </summary>
 	// 3Dモデル描画
 	//	model_->Draw(worldTransform_, viewProjection_, textureHandle_);
+	
+	switch (phase_) {
+
+		case Phase::kPlay:
+
 	// 自キャラの描画
 		player_->Draw();
+
+		break;
+
+		case Phase::kTitle:
+
+
+
+		break;
+
+	}
+	
+	
+	
 
 	// 天球の描画
 	    skydome_->Draw();
