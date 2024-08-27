@@ -161,6 +161,9 @@ void GameScene::Initialize() {
 
 	GenerateBlocks();
 
+	// ゲームプレイフェーズから開始
+	phase_ = Phase::kPlay;
+
 }
 
 void GameScene::Update() {
@@ -174,54 +177,106 @@ void GameScene::Update() {
 	}
 #endif
 
-	// カメラ処理
-	if (isDebugCameraActive_) {
-		// デバッグカメラの更新
-		debugCamera_->Update();
-		viewProjection_.matView = debugCamera_->GetViewProjection().matView;
-		viewProjection_.matProjection = debugCamera_->GetViewProjection().matProjection;
-		// ビュープロジェクション行列の転送
-		viewProjection_.TransferMatrix();
 
-		
 
-	} else {
+	
 
-		// ビュープロジェクション行列の更新と転送
-		viewProjection_.UpdateMatrix();
-		
-		viewProjection_.matView = cameraContoller_->GetViewProjection().matView;
-		viewProjection_.matProjection = cameraContoller_->GetViewProjection().matProjection;
-		viewProjection_.TransferMatrix();
-
-	}
-
-	// 自キャラの更新
-	player_->Update();
-
-	// 天球の更新
-	skydome_->Update();
-
-	goal_->Update();
-
-	// 縦横ブロック更新
-	for (std::vector<WorldTransform*> worldTransformBlockTate : worldTransformBlocks_) {
-		for (WorldTransform* worldTransformBlockYoko : worldTransformBlockTate) {
-			if (!worldTransformBlockYoko)
-				continue;
-
-			// アフィン変換行列の作成
-			worldTransformBlockYoko->UpdateMatrix();
-		}
-	}
-
-	// カメラコントローラーの更新
-	cameraContoller_->Update();
-
+	
+	
 	CameraController::Rect cameraArea_ = {12.0f, 100 - 12.0f, 6.0f, 6.0f};
 	cameraContoller_->SetMovableArea(cameraArea_);
 
-	CheckAllCollision();
+	
+
+	switch (phase_) {
+
+		case Phase::kPlay:
+		// 自キャラの更新
+		player_->Update();
+
+		// 天球の更新
+		skydome_->Update();
+
+		goal_->Update();
+
+		// カメラコントローラーの更新
+		cameraContoller_->Update();
+
+		// カメラ処理
+		if (isDebugCameraActive_) {
+			// デバッグカメラの更新
+			debugCamera_->Update();
+			viewProjection_.matView = debugCamera_->GetViewProjection().matView;
+			viewProjection_.matProjection = debugCamera_->GetViewProjection().matProjection;
+			// ビュープロジェクション行列の転送
+			viewProjection_.TransferMatrix();
+
+		} else {
+
+			// ビュープロジェクション行列の更新と転送
+			viewProjection_.UpdateMatrix();
+
+			viewProjection_.matView = cameraContoller_->GetViewProjection().matView;
+			viewProjection_.matProjection = cameraContoller_->GetViewProjection().matProjection;
+			viewProjection_.TransferMatrix();
+		}
+
+		// 縦横ブロック更新
+		for (std::vector<WorldTransform*> worldTransformBlockTate : worldTransformBlocks_) {
+			for (WorldTransform* worldTransformBlockYoko : worldTransformBlockTate) {
+				if (!worldTransformBlockYoko)
+					continue;
+
+				// アフィン変換行列の作成
+				worldTransformBlockYoko->UpdateMatrix();
+			}
+		}
+
+		CheckAllCollision();
+
+		break;
+
+		case Phase::kTitle:
+
+		// 天球の更新
+		skydome_->Update();
+
+		goal_->Update();
+
+		// カメラ処理
+		if (isDebugCameraActive_) {
+			// デバッグカメラの更新
+			debugCamera_->Update();
+			viewProjection_.matView = debugCamera_->GetViewProjection().matView;
+			viewProjection_.matProjection = debugCamera_->GetViewProjection().matProjection;
+			// ビュープロジェクション行列の転送
+			viewProjection_.TransferMatrix();
+
+		} else {
+
+			// ビュープロジェクション行列の更新と転送
+			viewProjection_.UpdateMatrix();
+
+			viewProjection_.matView = cameraContoller_->GetViewProjection().matView;
+			viewProjection_.matProjection = cameraContoller_->GetViewProjection().matProjection;
+			viewProjection_.TransferMatrix();
+		}
+
+		// 縦横ブロック更新
+		for (std::vector<WorldTransform*> worldTransformBlockTate : worldTransformBlocks_) {
+			for (WorldTransform* worldTransformBlockYoko : worldTransformBlockTate) {
+				if (!worldTransformBlockYoko)
+					continue;
+
+				// アフィン変換行列の作成
+				worldTransformBlockYoko->UpdateMatrix();
+			}
+		}
+
+
+		break;
+
+	}
 
 }
 

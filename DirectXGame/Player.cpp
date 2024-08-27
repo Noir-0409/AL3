@@ -699,6 +699,6 @@ void Player::OnCollision(const Goal* goal) {
 
 	(void)goal;
 
-	velocity_ += Vector3(0, kJumpAcceleration/60.f, 0);
+	//velocity_ += Vector3(0, kJumpAcceleration/60.f, 0);
 
 }

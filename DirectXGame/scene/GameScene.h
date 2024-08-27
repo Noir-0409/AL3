@@ -21,6 +21,17 @@
 /// </summary>
 class GameScene {
 
+	// ゲームのフェーズ
+	enum class Phase {
+
+		kPlay,
+		kTitle
+
+	};
+
+	// ゲームの現在のフェーズ
+	Phase phase_;
+
 public: // メンバ関数
 	/// <summary>
 	/// コンストクラタ
