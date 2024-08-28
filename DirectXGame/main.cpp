@@ -6,6 +6,25 @@
 #include "PrimitiveDrawer.h"
 #include "TextureManager.h"
 #include "WinApp.h"
+#include "Title.h"
+
+TitleScene* titleScene = nullptr;
+GameScene* gameScene = nullptr;
+
+// シーン
+enum class Scene {
+
+	kUnknown = 0,
+
+	kTitle,
+	kGame
+
+};
+
+// 現在シーン
+Scene scene = Scene::kUnknown;
+
+void ChangeScene();
 
 // Windowsアプリでのエントリーポイント(main関数)
 int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
@@ -16,7 +35,6 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 	Audio* audio = nullptr;
 	AxisIndicator* axisIndicator = nullptr;
 	PrimitiveDrawer* primitiveDrawer = nullptr;
-	GameScene* gameScene = nullptr;
 
 	// ゲームウィンドウの作成
 	win = WinApp::GetInstance();
@@ -61,6 +79,14 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 	gameScene = new GameScene();
 	gameScene->Initialize();
 
+	scene = Scene::kTitle;
+	titleScene = new TitleScene();
+	titleScene->Initialize();
+	titleScene->Update();
+	titleScene->Draw();
+
+	delete titleScene;
+
 	// メインループ
 	while (true) {
 		// メッセージ処理
@@ -103,4 +129,44 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 	win->TerminateGameWindow();
 
 	return 0;
+}
+
+void ChangeScene() {
+
+	switch (scene) {
+
+		case Scene::kTitle:
+
+			if (titleScene->IsFinished()) {
+		
+			scene = Scene::kGame;
+
+			delete titleScene;
+
+			titleScene = nullptr;
+
+			gameScene = new GameScene;
+
+			gameScene->Initialize();
+			
+			}
+
+		break;
+
+		case Scene::kGame:
+
+			scene = Scene::kTitle;
+
+		delete gameScene;
+
+		gameScene = nullptr;
+
+		titleScene = new TitleScene;
+
+		titleScene->Initialize();
+
+		break;
+
+}
+
 }
