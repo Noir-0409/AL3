@@ -28,6 +28,8 @@ void ChangeScene();
 
 void UpdateScene();
 
+void DrawScene();
+
 // Windowsアプリでのエントリーポイント(main関数)
 int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 	WinApp* win = nullptr;
@@ -189,5 +191,25 @@ case Scene::kGame:
 
 		break;
 }
+
+}
+
+void DrawScene() {
+
+switch (scene) {
+
+case Scene::kTitle:
+
+		titleScene->Draw();
+
+		break;
+
+case Scene::kGame:
+
+		gameScene->Draw();
+
+		break;
+}
+
 
 }
