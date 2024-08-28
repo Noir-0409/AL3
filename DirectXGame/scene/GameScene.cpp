@@ -103,7 +103,7 @@ void GameScene::ChangePhase() {
 
 		case Phase::kTitle:
 
-
+			
 
 		break;
 
@@ -193,12 +193,12 @@ void GameScene::Initialize() {
 void GameScene::Update() {
 
 #ifdef _DEBUG
-	if (input_->TriggerKey(DIK_SPACE)) {
-		if (isDebugCameraActive_ == true)
-			isDebugCameraActive_ = false;
-		else
-			isDebugCameraActive_ = true;
-	}
+	//if (input_->TriggerKey(DIK_SPACE)) {
+	//	if (isDebugCameraActive_ == true)
+	//		isDebugCameraActive_ = false;
+	//	else
+	//		isDebugCameraActive_ = true;
+	//}
 #endif
 
 
