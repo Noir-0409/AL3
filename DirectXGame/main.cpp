@@ -26,6 +26,8 @@ Scene scene = Scene::kUnknown;
 
 void ChangeScene();
 
+void UpdateScene();
+
 // Windowsアプリでのエントリーポイント(main関数)
 int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 	WinApp* win = nullptr;
@@ -167,6 +169,25 @@ void ChangeScene() {
 
 		break;
 
+}
+
+}
+
+void UpdateScene() {
+
+switch (scene) {
+
+case Scene::kTitle:
+
+		titleScene->Update();
+
+		break;
+
+case Scene::kGame:
+
+		gameScene->Update();
+
+		break;
 }
 
 }
