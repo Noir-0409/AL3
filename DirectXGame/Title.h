@@ -1,5 +1,6 @@
 #pragma once
 #include "GameScene.h"
+#include "titleSky.h"
 
 class TitleScene {
 
@@ -17,5 +18,7 @@ private:
 
 // 終了フラグ
 	bool finished_ = false;
+
+	TitleSky* titleSky_ = nullptr;
 
 };
