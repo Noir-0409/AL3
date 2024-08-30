@@ -103,7 +103,11 @@ void GameScene::ChangePhase() {
 
 		case Phase::kTitle:
 
+			if (player_->IsGoal()) {
+		
+			finished_=true;
 			
+			}
 
 		break;
 
@@ -352,9 +356,6 @@ void GameScene::Draw() {
 
 	}
 	
-	
-	
-
 	// 天球の描画
 	    skydome_->Draw();
 

@@ -54,9 +54,9 @@ void Player::Update() {
 	//ImGui::Checkbox("onGround_", &onGround_);
 	//ImGui::End();
 
-	ImGui::Begin("IsGoal");
-	ImGui::Checkbox("IsGoal", &isGoal_);
-	ImGui::End();
+	//ImGui::Begin("IsGoal");
+	//ImGui::Checkbox("IsGoal", &isGoal_);
+	//ImGui::End();
 
 }
 

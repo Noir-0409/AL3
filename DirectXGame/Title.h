@@ -1,4 +1,5 @@
 #pragma once
+#include "GameScene.h"
 
 class TitleScene {
 
