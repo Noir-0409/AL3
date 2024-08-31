@@ -5,7 +5,7 @@ class TitleSky {
 
 public:
 
-	void Initialize();
+	void Initialize(Model* model, ViewProjection* viewProjection);
 
 	void Update();
 
@@ -14,6 +14,8 @@ public:
 private:
 
 WorldTransform worldTransform_;
+
+ViewProjection* viewProjection_ = nullptr;
 
 Model* model_ = nullptr;
 

@@ -1,7 +1,21 @@
 #include "Title.h"
 #include "Input.h"
 
-void TitleScene::Initialize() {}
+TitleScene::TitleScene() {}
+
+TitleScene::~TitleScene() {
+
+	delete modelTitleSky_;
+
+}
+
+void TitleScene::Initialize() {
+
+modelTitleSky_ = Model::CreateFromOBJ("titleSky", true);
+
+//titleSky_->Initialize(modelTitleSky_, &viewProjection_);
+
+}
 
 void TitleScene::Update() {
 
@@ -12,4 +26,8 @@ void TitleScene::Update() {
 
 }
 
-void TitleScene::Draw() {}
+void TitleScene::Draw() {
+
+	//titleSky_->Draw();
+
+}
