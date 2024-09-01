@@ -1,5 +1,6 @@
 #include <WorldTransform.h>
 #include <Model.h>
+#include <ViewProjection.h>
 
 class TitleSky {
 

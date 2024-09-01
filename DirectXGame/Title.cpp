@@ -6,6 +6,7 @@ TitleScene::TitleScene() {}
 TitleScene::~TitleScene() {
 
 	delete modelTitleSky_;
+	delete titleSky_;
 
 }
 
@@ -13,7 +14,13 @@ void TitleScene::Initialize() {
 
 modelTitleSky_ = Model::CreateFromOBJ("titleSky", true);
 
-//titleSky_->Initialize(modelTitleSky_, &viewProjection_);
+titleSky_ = new TitleSky();
+
+titleSky_->Initialize(modelTitleSky_, &viewProjection_);
+
+worldTransform_.Initialize();
+
+viewProjection_.Initialize();
 
 }
 
@@ -24,10 +31,16 @@ void TitleScene::Update() {
 		finished_ = true;
 	}
 
+	titleSky_->Update();
+
 }
 
 void TitleScene::Draw() {
 
-	//titleSky_->Draw();
+	titleSky_->Draw();
+
+
+
+
 
 }

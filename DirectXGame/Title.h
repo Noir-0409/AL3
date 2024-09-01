@@ -24,6 +24,8 @@ private:
 // 終了フラグ
 	bool finished_ = false;
 
+	WorldTransform worldTransform_;
+
 	ViewProjection viewProjection_;
 
 	TitleSky* titleSky_ = nullptr;
