@@ -12,6 +12,6 @@ void TitleSky::Update() {}
 
 void TitleSky::Draw() {
 
-	model_->Draw(worldTransform_, *viewProjection_);
+	//model_->Draw(worldTransform_, *viewProjection_);
 
 }
