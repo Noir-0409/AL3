@@ -62,6 +62,24 @@ void GameScene::GenerateBlocks() {
 	}
 }
 
+void GameScene::CheckAllCollision() {
+
+AABB aabb1, aabb2;
+
+aabb1 = player_->GetAABB();
+
+aabb2 = enemy_->GetAABB();
+
+
+if (AABB::IsCollision(aabb1, aabb2)) {
+
+		player_->OnCollision(enemy_);
+
+		enemy_->OnCollision(player_);
+}
+
+}
+
 void GameScene::Initialize() {
 
 	dxCommon_ = DirectXCommon::GetInstance();
@@ -182,6 +200,9 @@ void GameScene::Update() {
 
 	CameraController::Rect cameraArea_ = {12.0f, 100 - 12.0f, 6.0f, 6.0f};
 	cameraContoller_->SetMovableArea(cameraArea_);
+
+	CheckAllCollision();
+
 }
 
 void GameScene::Draw() {

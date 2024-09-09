@@ -3,6 +3,8 @@
 #include "MapChipField.h"
 #include "AB.h"
 
+class Player;
+
 class Enemy {
 
 	public:
@@ -22,6 +24,8 @@ class Enemy {
 
 	// AABBを取得
 	AABB GetAABB();
+
+	void OnCollision(const Player* player);
 
 	private:
 

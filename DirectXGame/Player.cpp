@@ -650,3 +650,11 @@ Vector3 worldPos = GetWorldPosition();
 	return aabb;
 
 }
+
+void Player::OnCollision(const Enemy* enemy) {
+
+(void)enemy;
+
+velocity_ += Vector3(0, kJumpAcceleration/120, 0);
+
+}
