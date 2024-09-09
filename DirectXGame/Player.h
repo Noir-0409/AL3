@@ -90,6 +90,9 @@ public:
 	// 壁に接触している場合の処理
 	void UpdateHitWall(const CollisionMapInfo& info);
 
+	// ワールド座標を取得
+	Vector3 GetWorldPosition();
+
 private:
 	// ワールド変換データ
 	WorldTransform worldTransform_;
