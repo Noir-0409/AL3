@@ -1,6 +1,7 @@
 #include "WorldTransform.h"
 #include <Model.h>
 #include "MapChipField.h"
+#include "AB.h"
 
 class Enemy {
 
@@ -15,6 +16,12 @@ class Enemy {
 	const WorldTransform& GetWorldTransform() const { return worldTransform_; }
 
 	void SetMapChipField(MapChipField* mapChipField) { mapChipField_ = mapChipField; }
+
+	// ワールド座標を取得
+	Vector3 GetWorldPosition();	
+
+	// AABBを取得
+	AABB GetAABB();
 
 	private:
 
@@ -45,7 +52,10 @@ class Enemy {
 
 		// 経過時間
 	    float walkTimer_ = 0.0f;
-
+		
+		// キャラクターの当たりサイズ
+	    static inline const float kWidth = 0.8f;
+	    static inline const float kHeight = 0.8f;
 
 
 };

@@ -3,6 +3,7 @@
 #include "WorldTransform.h"
 #include "MapChipField.h"
 #include "MathUtilityForText.h"
+#include "AB.h"
 
 /// <summary>
 /// 自キャラ
@@ -92,6 +93,9 @@ public:
 
 	// ワールド座標を取得
 	Vector3 GetWorldPosition();
+
+	// AABBを取得
+	AABB GetAABB();
 
 private:
 	// ワールド変換データ
